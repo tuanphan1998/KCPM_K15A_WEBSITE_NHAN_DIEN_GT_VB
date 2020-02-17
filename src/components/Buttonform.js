@@ -55,10 +55,10 @@ class Buttonform extends Component {
         return (
             <div>
                     <button type="button" className="btn btn-primary right" data-toggle="modal" data-target={'#exampleModalCenter' + this.props.thongtincaptinh.key}>
-                        Edit_Info
+										<i className="fas fa-edit"></i>
                     </button>
                     <button type="button" className="btn btn-warning right" onClick={(uuid)=>this.XoaDele(this.props.thongtincaptinh.key)}>
-                        Delete_Info
+										<i className="fas fa-user-minus"></i>
                     </button>
 
 
@@ -66,7 +66,7 @@ class Buttonform extends Component {
                         <div className="modal-dialog modal-dialog-centered" role="document">
                             <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <h5 className="modal-title" id="exampleModalLongTitle">Chỉnh sửa thông tin</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                                 </button>
@@ -75,7 +75,7 @@ class Buttonform extends Component {
                                 
 
                             <div className="card text-white bg-primary mb-3">
-                                <div className="card-header">Chỉnh sửa thông tin</div>
+                                <div className="card-header"></div>
                                     <div className="card-body">
                                         <div className="form-group">
                                             <input type="text" onChange={(event)=>this.IsChange(event)}  defaultValue={this.props.thongtincaptinh.name} name="name" className="form-control"  aria-describedby="helpId" placeholder="Tên Người in trong thẻ" />

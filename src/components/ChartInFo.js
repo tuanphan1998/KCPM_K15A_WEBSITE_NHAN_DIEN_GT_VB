@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {firebaseone} from '../firebaseconnectio';
-import ChartNu from './ChartNu';
 import ChartInFo2 from './ChartInFo2';
 import dl from './Data/DulieuGioiTInh.json';
 import {connect} from 'react-redux';
@@ -10,12 +9,15 @@ class ChartInFo extends Component {
     super(props);
     this.state = {
       data : [],
-      datasex : {}
+			data2 : [],
+			datasun : []
     };
   }
   componentWillMount() {
     firebaseone.on('value',(datas) => {
-      var Mang = [];
+			var Mang = [];
+			var Mang2 = [];
+			var sun = [];
       datas.forEach(element => {
           const key = element.key;
           const sex = element.val().sex;
@@ -25,10 +27,22 @@ class ChartInFo extends Component {
               key : key,
               sex : sex
             })
-          }
+					}
+					if(sex === "NỮ")
+          {
+            Mang2.push({
+              key : key,
+              sex : sex
+            })
+					}
+					sun.push({
+						key : key
+				})
       });
       this.setState({
-        data : Mang
+				data : Mang,
+				data2 : Mang2,
+				datasun : sun
       });
     })
       if(localStorage.getItem('gioitinhrorang')===null)
@@ -46,7 +60,12 @@ class ChartInFo extends Component {
 
   datamen = () => {
     var temp = this.state.data.length;
-    return (temp / 95414640) * 100;
+    return (temp / this.state.datasun.length) * 100;
+  }
+
+	datanu = () => {
+    var temp = this.state.data2.length;
+    return (temp / this.state.datasun.length) * 100;
   }
 
   dansonamgioithap = () => {
@@ -58,23 +77,14 @@ class ChartInFo extends Component {
     return (temp/95414640) * 100;
   }
 
-  laydatadetonghop = (dl) => {
-    let ketquanu = (dl / 47403257) * 100;
-    let temp = this.state.data.length;
-    let ketquanam = (temp / 47625625 ) * 100;
-    console.log(ketquanam);
-    let info = {};
-    info.nam = ketquanam;
-    info.nu = ketquanu;
-    localStorage.setItem('gioitinhrorang',JSON.stringify(info));
-  }
+
 
   ShowDataAlear = () => {
     if(this.state.datasex.nam > this.state.datasex.nu)
     {
       return (
         <div className="alert alert-primary" role="alert">
-        Giới tinh nam nhiều hơn giới tính nữ : <a href="/" className="alert-link">{this.state.datasex.nam} %</a>. Hãy tiếp tục theo dõi !.
+        Giới tinh nam nhiều hơn giới tính nữ : <a  href="/" className="alert-link">{this.state.datasex.nam} %</a>. Hãy tiếp tục theo dõi !.
         </div>
       )
     }
@@ -116,11 +126,13 @@ class ChartInFo extends Component {
       this.props.ThuchienlaydulieuA("nếu vào lần đầu nhớ reset lại trình duyệt")
         return (
           <div className="row mt-2">
-             <div className="col-6">
+             <div className="col-md-6 ">
              <div className="container">
                   <div className="row">
+										
                     <div className="col-md-12">
-                      <div className="text-center text-uppercase">
+											
+                      <div className="text-center text-uppercase ">
                         <h2>Tháp dân số hiện tại</h2>
                       </div>
                       {/* //.text-center */}
@@ -131,19 +143,19 @@ class ChartInFo extends Component {
                         {/* //.legend */}
                         <div className="legend legend-right hidden-xs">
                           <div className="item">
-                            <h4>Nữ</h4>
-                          </div>
-                          {/* //.item */}
-                          <div className="item">
-                            <h4>Dân số nữ</h4>
-                          </div>
-                          {/* //.item */}
-                          <div className="item">
                             <h4>Nam</h4>
                           </div>
                           {/* //.item */}
                           <div className="item">
                             <h4>Dân số nam</h4>
+                          </div>
+                          {/* //.item */}
+                          <div className="item">
+                            <h4>Nữ</h4>
+                          </div>
+                          {/* //.item */}
+                          <div className="item">
+                            <h4>Dân số nữ</h4>
                           </div>
                           {/* //.item */}
                         </div>
@@ -170,7 +182,12 @@ class ChartInFo extends Component {
                           </div>
                           {/* //.item */}
                           <div className="item">
-                              <ChartNu laydatadetonghopnu={(dl)=>this.laydatadetonghop(dl)}/>
+													<div className="bar">
+                          <span className="percent">{Math.floor(this.datanu()) + "%"}</span>
+                          <div className="item-progress"  style={{height: this.datanu()+"%"}}>
+                          </div>
+                          {/* //.item-progress */}
+            						 </div>   
                           </div>
                           {/* //.item */}
                           <div className="item">
@@ -193,8 +210,8 @@ class ChartInFo extends Component {
                   {/* //.row */}
                 </div>
              </div>
-             <div className="col-6"><ChartInFo2/></div>
-             <div className="col-12">
+             <div className="col-md-6"><ChartInFo2/></div>
+             <div className="col-md-12 d-flex justify-content-center">
               {this.ShowDataAlear()}
               </div>
           </div>

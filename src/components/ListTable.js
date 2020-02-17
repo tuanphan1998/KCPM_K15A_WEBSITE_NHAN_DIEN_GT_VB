@@ -52,13 +52,6 @@ class ListTable extends Component {
     })
   }
 
-  GhiNhanKetQua = () => {
-    if(this.state.data)
-    {
-      return("Tổng số dữ liệu " + this.state.data.length);
-    }
-  }
-
 
 
   GhiNhanKietQuaTimKiem = (dl) => {
@@ -83,7 +76,7 @@ class ListTable extends Component {
         return 0;
       })
         return (
-            <div className="mt-4">
+            <div className="mt-4 table-wrapper-scroll-y my-custom-scrollbar">
               <Search GhiNhanKietQuaTimKiem={(dl)=>this.GhiNhanKietQuaTimKiem(dl)}/>
                <ReactHTMLTableToExcel
                     id="test-table-xls-button"
@@ -92,8 +85,8 @@ class ListTable extends Component {
                     filename="tablexls"
                     sheet="tablexls"
                     buttonText="Download as XLS"/>
-                    {this.GhiNhanKetQua()}
-            <table className="table" id="table-to-xls">
+										<p><i style={{marginLeft:"12px"}} className="fas fa-street-view"></i>{this.state.data.length}</p>
+            <table className="table table-bordered table-striped mb-0" id="table-to-xls" border="1">
               <thead className="thead-dark" style={{fontSize: '12px'}}>
                 <tr >
                   <th scope="col">Code</th>
@@ -115,9 +108,7 @@ class ListTable extends Component {
                   <th scope="col">Trạng thái</th>
                 </tr>
               </thead>
-           
                   <KOKOBAYs dulieu={ketqua}/>
-            
             </table>
           </div>
           

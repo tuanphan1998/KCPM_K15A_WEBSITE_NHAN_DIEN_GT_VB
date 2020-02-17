@@ -22,8 +22,9 @@ class Search2 extends Component {
    return (
     <div className="form-group">
         <div className="btn-group d-flex justify-content-start">
-            <input type="text" name="search" onChange={(event)=>this.IsChange(event)}  style={{width: '380px'}} className="form-control"  aria-describedby="helpId" placeholder="Nhập từ khóa" />
-            <div className="btn btn-info" onClick={(dl)=>this.props.luutruduieu2(this.state.search)}>Tìm kiếm</div>
+            <input type="text" name="search" onChange={(event)=>this.IsChange(event)}  style={{width: '900px'}} className="form-control"  aria-describedby="helpId" placeholder="Nhập từ khóa" />
+						<span className="input-group-text" id="basic-addon2">Tìm kiếm thông tin để thay đổi hoặc xóa</span>
+						<div className="btn btn-info" onClick={(dl)=>this.props.luutruduieu2(this.state.search)}><i class="fas fa-search"></i></div>
         </div>
     </div>
    )

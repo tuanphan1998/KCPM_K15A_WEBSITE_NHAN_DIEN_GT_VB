@@ -10,6 +10,7 @@ import New from '../components/ShowData/New';
 import NewDeltal from '../components/ShowData/NewDeltal';
 import Palte from '../components/ANPR/Palte';
 import Infos from '../components/InfoSystem/Infos';
+import Qrcode from '../components/DecodeQR/Qrcode';
 class DieuHuongUrl extends Component {
     render() {
         return (
@@ -25,6 +26,7 @@ class DieuHuongUrl extends Component {
                 <Route path="/chi-tiet-tai-lieu/:slug.:id.html" component={NewDeltal} />
                 <Route path="/du-lieu-update-no-ai" component={Palte} />
                  <Route path="/thong-tin-he-thong"  component={Infos} />
+								 <Route path="/kiem-tra-qr"  component={Qrcode} />
             </div>
           </Router>
         );

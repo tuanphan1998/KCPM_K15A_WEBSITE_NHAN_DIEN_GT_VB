@@ -6,6 +6,7 @@ import Search2 from './SearchData/Search2';
 import KOOBAY from './DataAwsSearch/dulieutimkiemformthongke';
 import mahoans from './mahoan.json'
 import Agen from './ThapTuoi/Agen';
+import DiaPhuong from './ThapDiaPhuong/diaPhuong';
 class FormInForVsEdit extends Component {
     constructor(props) {
         super(props);
@@ -107,11 +108,11 @@ class FormInForVsEdit extends Component {
         console.log(this.props.ThuchineHienTHi);
         return (
             <div id="accordion" className="mt-4">
-                <div className="row mt-2 mb-4">
-                    <div className = "col-6">
+                <div className="row mt-3 mb-4">
+                    <div className = "col-md-6 d-flex justify-content-start">
                         <iframe src='https://danso.org/bdds/?country=viet-nam'  frameBorder={0} scrolling="no" width={550} height={300}  title="myFrame"></iframe>
                     </div>
-                    <div className = "col-6"> 
+                    <div className = "col-md-6 d-flex justify-content-end"> 
                         <iframe src="https://danso.org/bdtl/?country=viet-nam" frameBorder={0} scrolling="no" width={550} height={300} title="myframe2"></iframe>
                     </div>
                 </div>
@@ -145,20 +146,29 @@ class FormInForVsEdit extends Component {
                         </table>
                     </div>
                 </div>
+							
                 <ChartInFo/>
                 <div className="container">
                 <div className="row" style={{marginTop: '30px'}}>
-                    <div className="col-md-12">
-                   <i className="fa fa-pie-chart" aria-hidden="true" />
-                    <h1>Tháp tuổi</h1>
-                    <small className="ash">Thống kê độ tuổi</small><br />
+                    <div className="col-md-12 ">
                     <Agen/>
                     </div>
                 </div>
+
+
+
+								<div className="row" style={{marginTop: '30px'}}>
+                    <div className="col-md-12 ">
+                    <DiaPhuong/>
+                    </div>
+                </div>
+
+
                 </div>
                 <ThongBaoCapCaoCo data={this.state.data} KetquaPhantran={()=>this.KetquaPhantran()}/>
                 <Search2 luutruduieu2={(dl) => this.luutruduieu(dl)}/>
-                <KOOBAY dulieukiemtim={ketqua}/>
+								<KOOBAY dulieukiemtim={ketqua}/>
+               
             </div>
         );
     }

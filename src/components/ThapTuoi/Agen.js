@@ -166,16 +166,20 @@ class Agen extends Component {
         console.log(this.state.data34);
         return (
             <div>
+								<div className="text-uppercase">
+											<h1>Tháp tuổi</h1>
+											<small className="ash">Thống kê độ tuổi</small><br />
+											</div>
                    <dl>
-                    <dd className={"percentage percentage-" + this.phantich()  }><span className="text">14 - 24</span></dd>
-                    <dd className={"percentage percentage-" + this.Phantich2()  }><span className="text">24 - 34</span></dd>
-                    <dd className={"percentage percentage-" + this.Phantich3()  }><span className="text">34 - 44</span></dd>
-                    <dd className={"percentage percentage-" + this.Phantich4()  }><span className="text">44 - 54</span></dd>
-                    <dd className={"percentage percentage-" + this.Phantich5()  }><span className="text">54 - 64</span></dd>
-                    <dd className={"percentage percentage-" + this.Phantich6()  }><span className="text">64 - C</span></dd>
+                    <dd className={"percentage percentage-" + this.phantich()  }><span className="text"  style={{color: 'black'}}>14 - 24</span></dd>
+                    <dd className={"percentage percentage-" + this.Phantich2()  }><span className="text" style={{color: 'black'}}>24 - 34</span></dd>
+                    <dd className={"percentage percentage-" + this.Phantich3()  }><span className="text" style={{color: 'black'}}>34 - 44</span></dd>
+                    <dd className={"percentage percentage-" + this.Phantich4()  }><span className="text" style={{color: 'black'}}>44 - 54</span></dd>
+                    <dd className={"percentage percentage-" + this.Phantich5()  }><span className="text" style={{color: 'black'}}>54 - 64</span></dd>
+                    <dd className={"percentage percentage-" + this.Phantich6()  }><span className="text" style={{color: 'black'}}>64 - C</span></dd>
                 
                 </dl>
-                <div className="col-12">
+                <div className="col-12 d-flex justify-content-center">
                     {this.danhgia()}
                 </div>
             </div>

@@ -17,7 +17,7 @@ class App extends Component {
   return (
     <Router>
 
-		{this.showthongbao()}
+				{this.showthongbao()}
 				<UserInfo/>
       </Router>
     );

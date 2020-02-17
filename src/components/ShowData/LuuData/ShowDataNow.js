@@ -15,7 +15,7 @@ class ShowDataNow extends Component {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': '9b420367-237d-4c15-b948-ee42b83b4735' //Get your API key from 
+              'Authorization': 'd4c32d73-e0c5-433e-b668-9296e5be87f3' //Get your API key from 
             },
             body: JSON.stringify({html:  this.props.vanbans, inlinePdf: true, fileName: 'test.pdf' })
           }).then(res=>res.json())

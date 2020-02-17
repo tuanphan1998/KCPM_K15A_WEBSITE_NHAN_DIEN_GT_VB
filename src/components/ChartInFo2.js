@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import {firebaseone} from '../firebaseconnectio';
-import ChartInfo3 from './ChartInfo3';
-import ChartInFo4 from './ChartInFo4';
 class ChartInFo2 extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        data : []
+				data : [],
+				data2 : [],
+				datasun : []
       };
     }
     componentWillMount() {
       firebaseone.on('value',(datas) => {
-        var Mang = [];
+				var Mang = [];
+				var Mang2 = [];
+				var sun = [];
         datas.forEach(element => {
             const key = element.key;
             const sex = element.val().sex;
@@ -21,19 +23,40 @@ class ChartInFo2 extends Component {
                 key : key,
                 sex : sex
               })
-            }
+						}
+						if(sex === "N/A")
+						{
+							Mang2.push({
+								key : key,
+								sex : sex
+							})
+						}
+						sun.push({
+							key : key
+						})
         });
         this.setState({
-          data : Mang
+					data : Mang,
+					data2 : Mang2,
+					datasun : sun
         })
       })
     }
 
     ShowDatacccd = () => {
       var temp = this.state.data.length;
-      var ketqua = (temp / 95414640) * 100;
+      var ketqua = (temp / this.state.datasun.length) * 100;
       return ketqua;
-    }
+		}
+		ShowDatacmnd = () => {
+			var temp = this.state.data2.length;
+      var ketqua = (temp / this.state.datasun.length) * 100;
+      return ketqua;
+		}
+		datatong = () => {
+			var tongket = (this.state.datasun.length / this.state.datasun.length) * 100;
+			return tongket;
+		}
 
 
      
@@ -83,12 +106,22 @@ class ChartInFo2 extends Component {
                       </div>
                       {/* //.item */}
                       <div className="item">
-                        <ChartInfo3/>
+											<div className="bar">
+                          <span className="percent">{Math.floor(this.ShowDatacmnd()) + "%"}</span>
+                          <div className="item-progress"   style={{height: this.ShowDatacmnd()+"%"}}>
+                          </div>
+                          {/* //.item-progress */}
+                        </div>
                         {/* //.bar */}
                       </div>
                       {/* //.item */}
                       <div className="item">
-                        <ChartInFo4/>
+											<div className="bar">
+                          <span className="percent">{Math.floor(this.datatong()) + "%"}</span>
+                          <div className="item-progress"   style={{height: this.datatong()+"%"}}>
+                          </div>
+                          {/* //.item-progress */}
+                        </div>
                         {/* //.bar */}
                       </div>
                       {/* //.item */}

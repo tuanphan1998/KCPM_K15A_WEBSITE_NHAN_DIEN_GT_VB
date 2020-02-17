@@ -1,26 +1,60 @@
 import React, { Component , Fragment } from "react";
 import Login from "./Login";
 import   firebase from "firebase";
+import {firebasefor} from '../firebaseconnectio';
 import  { firebaseApp } from "../firebaseconnectio";
 import DieuHuongUrl from  './../router/DieuHuongUrl';
+import dl from "../components/Data/DulieuVuaNhap.json";
+import MenuFullOprion from "./MenuFullOprion";
+import Countdown from 'react-countdown';
+const Completionist = () => <span>You are good to go!</span>;
 class UserInfo extends Component {
     state = {
-       			email: null,
+       	email: null,
 				displayName: null,
-				photoURL : null
-      };
-    
+				photoURL : null,
+				uid : null,
+				dataBaseQR : [],
+			};
+
+			componentWillMount() {
+				if(localStorage.getItem('komsa') === null)
+				{
+					localStorage.setItem('komsa',JSON.stringify(dl));
+				}
+				firebasefor.on('value',(datas) => {
+					var Mang = [];
+					datas.forEach(element => {
+						const key = element.key;
+						const queQR = element.val().queQR;
+						const time = element.val().time;
+						const time2 = element.val().time2;
+						const check = element.val().check;
+						if(check === "1"){
+							Mang.push({
+								key : key,
+								queQR : queQR,
+								time : time,
+								time2 : time2
+							})
+						}
+					});
+					this.setState({
+						dataBaseQR : Mang,
+					});
+				})
+			}
       componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
-          if (user) {
+          if (user){
             this.authHandler({ user });
-          }
-        });
+					}
+				this.setState({
+					uid : user.uid
+				});
+				});
       }
-
-
       authHandler = async authData => {
-        console.log(authData);
         const user = authData.user;
         this.setState({
           email: user.email,
@@ -30,7 +64,6 @@ class UserInfo extends Component {
       };
     
       authenticate = provider => {
-        console.log(provider);
         const authProvider = new firebase.auth[`${provider}AuthProvider`]();
         firebaseApp
           .auth()
@@ -39,10 +72,9 @@ class UserInfo extends Component {
       };
     
       logout = async () => {
-        console.log("logout");
         await firebase.auth().signOut();
         this.setState({ email: null, displayName: null , photoURL : null });
-      };
+		};
 
 
 
@@ -51,64 +83,85 @@ class UserInfo extends Component {
     if (!this.state.email) {
       return <Login authenticate={this.authenticate} />;
 		}
-		console.log(this.state);
+		var ketqua = [];
+		this.state.dataBaseQR.forEach((item) => {
+			if(item.queQR.indexOf(JSON.parse(localStorage.getItem("komsa"))) !== -1)
+			{
+					ketqua.push(item);
+			}
+		});
     return (
      <Fragment>
       	<div>
-							<nav className="navbar navbar-expand-sm bg-dark navbar-dark">
-								{/* Brand/logo */}
-								<a className="navbar-brand" href="/">
-									<img src={this.state.photoURL} alt="logo" style={{width: '40px'}} />
-								</a>
-								{/* Links */}
-								<ul className="navbar-nav">
-									<li className="nav-item">
-										<a className="nav-link" href="/">Username : <span>{this.state.displayName}</span></a>
-									</li>
-									<li className="nav-item">
-										<a className="nav-link" href="/">Email : <span>{this.state.email}</span></a>
+
+							<nav className="navbar navbar-expand navbar-dark bg-dark static-top">
+								<a className="navbar-brand mr-1 fontssss" href="index.html"><img src="https://www.upsieutoc.com/images/2020/02/12/pngfuel.com.png" className="anhdaidien" alt="iconImage" />One world one dream</a>
+								{/* Navbar Search */}
+								<form className="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+								</form>
+								{/* Navbar */}
+								<ul className="navbar-nav ml-auto ml-md-0">
+									<li className="nav-item dropdown no-arrow">
+										<a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<small><Countdown date={Date.now() + 60000}><Completionist /></Countdown></small>
+										<img src={this.state.photoURL} alt="logo" style={{width: '40px'}} />
+										</a>
+										<div className="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+											<a className="dropdown-item" href="/"> <span>{this.state.displayName}</span></a>
+											<a className="dropdown-item" href="/"> <span>{this.state.email}</span></a>
+											<div className="dropdown-divider" />
+											<a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
+										</div>
 									</li>
 								</ul>
 							</nav>
 
+							<div id="wrapper">
+								{/* Sidebar */}
+								<MenuFullOprion Phanquen={ketqua} mauuidgit={this.state.uid} />
+								<div id="content-wrapper">
+									<div className="container-fluid">
+										{/* Breadcrumbs*/}
 
-								<div className="App">
-									<header className="App-header">
-										<div className="container mt-5 mb-4">
-												<div className="row">
-																<div className="col-4">
-																	<div className="list-group" id="list-tab" role="tablist">
-																		<a  className="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Front card</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Back card</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list2" data-toggle="list" href="#list-profile2" role="tab" aria-controls="profile">Back up Card</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list3" data-toggle="list" href="#list-profile3" role="tab" aria-controls="profile">InFo Edit Card</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list4" data-toggle="list" href="#list-profile4" role="tab" aria-controls="profile">Language</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list7" data-toggle="list" href="#list-profile7" role="tab" aria-controls="profile">Language Data Show</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list5" data-toggle="list" href="#list-profile5" role="tab" aria-controls="profile">Language Data del</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list6" data-toggle="list" href="#list-profile6" role="tab" aria-controls="profile">Put card no AI</a>
-																		<a className="list-group-item list-group-item-action" id="list-profile-list8" data-toggle="list" href="#list-profile8" role="tab" aria-controls="profile">Infos system</a>
-																	</div>
-																</div>
-																<div className="col-8">
-																	<div className="tab-content" id="nav-tabContent">
-																		<div className="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"> Mặt trước cung cấp đủ thông tin cho người dùng bao gồm tự động nhận diện ảnh face , thông tin mã <code>cmnd or số cccd</code> địa chỉ quê quán và ngày sinh <a href="/mat-truoc">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Mặt sau cung cấp đủ thông tin cho người dùng bao gồm tự động nhận diện văn bản khu vực tôn giáo , dân tộc , nơi cấp <a href="/mat-sau">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile2" role="tabpanel" aria-labelledby="list-profile-list2">Đưa ra danh sách user thống kê lưu trữ mọi thông tin đã cấp quyền quét <a href="/danh-sach">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile3" role="tabpanel" aria-labelledby="list-profile-list3">Đưa ra các sự lựa chọn về sửa đổi dữ liệu user và thống kê tỉ lệ các thay đổi đã thiết lập<a href="/thong-ke">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile4" role="tabpanel" aria-labelledby="list-profile-list4">Đưa ra công cụ chuyển hóa văn bản thành giọng nói đảm bảo chất lượng âm thanh tốt mang lại một trải ngiệm tốt <a href="/giong-noi">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile7" role="tabpanel" aria-labelledby="list-profile-list7"> Lưu trữ toàn tệp âm thanh và hình ảnh tài liệu của nhà bạn :))<a href="/hien-thi-danh-sach">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile5" role="tabpanel" aria-labelledby="list-profile-list5"> Lưu trữ toàn bộ tệp âm thanh và các thao tác xóa văn bản hành chính online của bạn <a href="/du-lieu-giong-noi">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile6" role="tabpanel" aria-labelledby="list-profile-list6"> Update data không sử dụng hình ảnh và công nghệ trí tuệ nhân tạo <a href="/du-lieu-update-no-ai">Ấn vào đây</a></div>
-																		<div className="tab-pane fade" id="list-profile8" role="tabpanel" aria-labelledby="list-profile-list8"> View info system tổng hợp lại toàn bộ thông tin nhà phát triển , tổng số lần gọi <a href="/thong-tin-he-thong">Ấn vào đây</a></div>
-																	</div>
-																</div>
+										<DieuHuongUrl/>
+
+
+										{/* Sticky Footer */}
+										<footer className="sticky-footer">
+											<div className="container my-auto">
+												<div className="copyright text-center my-auto">
+													<span>Copyright © Your Website 2019</span>
+												</div>
 											</div>
-											<DieuHuongUrl/>
-										</div>
-									</header>
+										</footer>
+									</div>
+									{/* /.content-wrapper */}
 								</div>
+								{/* /#wrapper */}
+								{/* Scroll to Top Button*/}
+								<a className="scroll-to-top rounded" href="#page-top">
+									<i className="fas fa-angle-up" />
+								</a>
+								{/* Logout Modal*/}
+								<div className="modal fade" id="logoutModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div className="modal-dialog" role="document">
+										<div className="modal-content">
+											<div className="modal-header">
+												<h5 className="modal-title" id="exampleModalLabel">Bạn có muốn đăng xuất không?</h5>
+												<button className="close" type="button" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">×</span>
+												</button>
+											</div>
+											<div className="modal-body">Nếu đồng lý hãy chọn Logout nếu không đồng ý hãy chọn Cancel</div>
+											<div className="modal-footer">
+												<button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+													<button className="btn btn-primary" type="button">{logout}</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
 					</div>
-					  <div>{logout}</div>
       </Fragment>
     );
   }

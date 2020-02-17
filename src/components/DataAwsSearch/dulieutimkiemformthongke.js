@@ -10,7 +10,7 @@ class dulieutimkiemformthongke extends Component {
             this.props.dulieukiemtim.map((value , key) => {
                 
                 return (
-                    <div className="card" key={key}>
+                    <div className="card " key={key}>
                           <div className="card-header" id="headingTwo">
                                 <h5 className="mb-0">
                                 <button className="btn btn-link collapsed floatleff" data-toggle="collapse" data-target={'#collapseTwo' + value.key} aria-expanded="false" aria-controls="collapseTwo">

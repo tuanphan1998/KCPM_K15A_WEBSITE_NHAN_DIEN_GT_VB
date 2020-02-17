@@ -6,6 +6,8 @@ import reducer5 from './reducer/reducer5';
 import reducer6 from './reducer/reducer6';
 import reducer7 from './reducer/reducer7';
 import reducer8 from './reducer/reducer8';
+import reducer9 from './reducer/reducer9';
+import reducerFE from './reducer/reducerFE';
 
 var redux = require('redux');
 
@@ -17,7 +19,9 @@ var allreducer = redux.combineReducers({
     thuchienxoaaudios : reducer5,
     thongbao : reducer6,
 		updatematsau : reducer7,
-		nhaplieuapi : reducer8
+		nhaplieuapi : reducer8,
+		laymaDecode : reducer9,
+		suamaQR : reducerFE
 })
 
 var store = redux.createStore(allreducer);

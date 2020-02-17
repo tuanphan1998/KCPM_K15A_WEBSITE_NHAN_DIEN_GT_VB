@@ -16,7 +16,7 @@ const firebaseApp = firebase.initializeApp ({
   export const firebaseone = firebase.database().ref('Note');
 	export const firebasetwo = firebase.database().ref('Note1');
 	export const firebasethree = firebase.database().ref('Note3');
-
+	export const firebasefor = firebase.database().ref('Note4');
 
 
 	const base = Rebase.createClass(firebase.database());

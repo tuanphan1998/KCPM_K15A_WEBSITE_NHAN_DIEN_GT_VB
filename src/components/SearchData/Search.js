@@ -20,8 +20,11 @@ class Search extends Component {
         return (
         <div className="form-group">
             <div className="btn-group  d-flex justify-content-start">
-              <input type="text" onChange={(event)=>this.IsChange(event)} name="search"  style={{width: '260px'}} className="form-control"  aria-describedby="helpId" placeholder="Nhập từ khóa" />
-              <div className="btn btn-info" onClick={(dl)=>this.props.GhiNhanKietQuaTimKiem(this.state.search)}>Tìm kiếm</div>
+							<div className="input-group-append">
+              <input type="text" onChange={(event)=>this.IsChange(event)} name="search"  style={{width: '1000px'}} className="form-control"  aria-describedby="helpId" placeholder="Nhập từ khóa" />
+							<span className="input-group-text" id="basic-addon2">Đây là ô tìm kiếm thông tin</span>
+              <button className="btn btn-info" onClick={(dl)=>this.props.GhiNhanKietQuaTimKiem(this.state.search)}><i className="fas fa-search"></i></button>
+							</div>
             </div>
           </div>
         );

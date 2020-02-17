@@ -3,6 +3,8 @@ import request from 'superagent';
 import KOKOBAY from './itemback';
 import mahoan2 from './mahoan2.json';
 import {firebaseone} from '../firebaseconnectio';
+import Camera from 'react-html5-camera-photo';
+import 'react-html5-camera-photo/build/css/index.css';
 import {connect} from 'react-redux';
 class FormTextBack extends Component {
     constructor(props) {
@@ -11,7 +13,9 @@ class FormTextBack extends Component {
             image_url : '',
             data : '',
             data2 : '',
-            persion : '',
+						persion : '',
+						changeGiayTo : '',
+						dataBase64 : "",
             persion2 : ''
         };
     }
@@ -22,9 +26,22 @@ class FormTextBack extends Component {
             [name] : value
         })
         console.log(value);
+		}
+		isChange2 = (event) => {
+			const value = event.target.value;
+			this.setState({
+				changeGiayTo : value
+			})
+			console.log(value);
+		}
+		handleTakePhoto = (dataUri) => {
+			console.log('takePhoto' + dataUri);
+			this.setState({
+				dataBase64 : dataUri.slice(22)
+			});
     }
     Haller = () => {
-        if(this.state.image_url === "")
+        if(this.state.dataBase64 === "")
         {
           alert('Yêu cầu bạn nhập thông tin');
         }
@@ -34,9 +51,10 @@ class FormTextBack extends Component {
           info.image_url = this.state.image_url;
           console.log(info);
           request
-          .post('https://api.openfpt.vn/cmt')
+          .post(this.state.changeGiayTo)
           .set('Content-Type', 'application/x-www-form-urlencoded')
-          .set('api_key', 'dac21922a41a4422a6236c5990036ba3')
+          .set('api_key', 'ZF8gEvJwnI7syj6yWSA4P66U3hE0ZXZt')
+					.send({image_base64: this.state.dataBase64})
           .send({image_url: this.state.image_url})
           .send({face:1})
           .end(function(err, res){
@@ -207,7 +225,120 @@ class FormTextBack extends Component {
                     <button type="button" className="btn btn-success" onClick={()=>this.Haller()}><i className="fas fa-archway"></i></button>
                     <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i className="fas fa-cloud-upload-alt"></i></button>
                     <button type="button" className="btn btn-warning" onClick={()=>this.ButtonsClean()}><i className="fas fa-eraser"></i></button>
+										<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter3"><i className="fas fa-cogs"></i></button>
+										<button type="button" className="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter2"><i className="fas fa-video"></i></button>
                     </div>
+
+
+
+
+										<div className="modal fade" id="exampleModalCenter3" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLongTitle">Lựa chọn giấy tờ phù hợp</h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+
+                <div className="form-row">
+            <div className="form-group col-md-12">
+            
+                  <select className="form-control form-control-sm" onChange={(event)=>this.isChange2(event)} name="persion">
+                          <option value>Chọn loại giấy tờ</option>
+                          <option value={"/vision/idr/vnm"}>Chứng minh nhân dân và căn cước công dân</option>
+                          <option value={"/vision/dlr/vnm"}>Giấy phép lái xe</option>
+                          <option value={"/vision/passport/vnm"}>Hộ chiếu</option>
+                  </select>
+            </div>
+          </div>
+
+          <div className="form-group">
+              
+							{
+                this.state.changeGiayTo && <div className="alert alert-primary" role="alert">
+                    Giấy tờ cá nhân : <a href="/" className="alert-link">{this.state.changeGiayTo}</a>
+                </div>
+              }
+              
+          </div>
+                
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-primary" data-dismiss="modal">Save change</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div className="modal fade" id="exampleModalCenter2" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content"  style={{width: '800px'}}>
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLongTitle">Camera HD</h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+
+                <div className="form-row">
+            <div className="form-group col-md-12">
+							<div className="d-flex justify-content-center">	
+									<div>
+									<Camera  onTakePhoto = { (dataUri) => {this.handleTakePhoto(dataUri); } }/>
+									</div>
+							</div>
+						
+            </div>
+          </div>
+
+          <div className="form-group">
+              
+							{
+                this.state.dataBase64 && <div className="alert alert-primary" role="alert">
+                  <pre>
+									Dữ liệu mã hóa : <a href="/" className="alert-link">{this.state.dataBase64}</a>
+									</pre>
+                </div>
+              }
+              
+          </div>
+                
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-primary" data-dismiss="modal">Save change</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
                 </div>
 
 
@@ -218,7 +349,7 @@ class FormTextBack extends Component {
             <div className="modal-dialog modal-dialog-centered" role="document">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                  <h5 className="modal-title" id="exampleModalLongTitle">Bảng dữ liệu đã update lên từ mặt trước</h5>
                   <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                   </button>
