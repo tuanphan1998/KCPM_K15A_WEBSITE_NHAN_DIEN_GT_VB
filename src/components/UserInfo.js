@@ -6,9 +6,7 @@ import  { firebaseApp } from "../firebaseconnectio";
 import DieuHuongUrl from  './../router/DieuHuongUrl';
 import dl from "../components/Data/DulieuVuaNhap.json";
 import MenuFullOprion from "./MenuFullOprion";
-import Countdown from 'react-countdown';
 import VideoInput from "../views/VideoInput";
-const Completionist = () => <span>Hẹn gặp lại bạn nhé</span>;
 class UserInfo extends Component {
     state = {
        	email: null,
@@ -94,19 +92,11 @@ class UserInfo extends Component {
 			const localStore1 = localStorage.getItem("komsa");
 			if(localStore1)
 			{
-				return(
-					<small className="alert alert-success" role="alert">
-  				<i className="fas fa-smile-beam"></i> : Mã QR được quét
-				</small>
-				)
+				return(<b><i className="fas fa-smile-beam"></i> : Mã QR được quét</b>)
 			}
 			else
 			{
-				return(
-					<small className="alert alert-danger" role="alert">
-					<i className="fas fa-angry"></i> : Mã QR không được quét
-				</small>
-				)
+				return(<b><i className="fas fa-angry"></i> : Mã QR không được quét</b>)
 			}
 		}
 		kiemtraPhuVaGiay = (i) => {
@@ -121,8 +111,22 @@ class UserInfo extends Component {
 		}
 
 
+		LuuGiaTriKhuonMat = (dl) => {
+				console.log(JSON.stringify(dl._label))
+				if(dl === null)
+				{
+				
+					console.log("không có người sử dụng");
+				}
+				else
+				{
+					console.log("có người sử dụng");
+				}
+		}
+
 
   render() {
+		
    const logout = <button onClick={this.logout}>Log Out!</button>;
     if (!this.state.email) {
       return <Login authenticate={this.authenticate} />;
@@ -144,18 +148,23 @@ class UserInfo extends Component {
 								<form className="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 								</form>
 								{/* Navbar */}
+								
+								<ul className="navbar-nav ml-auto ml-md-0">
+										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#myModal"><i className="fab fa-hubspot"></i></button>
+										<VideoInput LuuGiaTriKhuonMats={(dl)=>this.LuuGiaTriKhuonMat(dl)}/>
+								</ul>
+
+
 								<ul className="navbar-nav ml-auto ml-md-0">
 									<li className="nav-item dropdown no-arrow">
 										<a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									
 										<small className="alert alert-dark" role="alert">
-											<i className="fas fa-sign-out-alt"></i>:&nbsp;<Countdown date={Date.now() + 57000}><Completionist /></Countdown>&nbsp;&nbsp;&nbsp;&nbsp;
+											<i className="fas fa-sign-out-alt"></i>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="far fa-user-circle"></i> :&nbsp;{this.dangTaiKhoan()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-clock"></i> :&nbsp;{this.state.time.toLocaleTimeString()}&nbsp;&nbsp;&nbsp;&nbsp;
+											{this.trangthaikichhoatQR()}
 										</small>
-										
-										{this.trangthaikichhoatQR()}
-										
 										<img src={this.state.photoURL} alt="logo" style={{width: '40px'}} />
 										</a>
 										<div className="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -166,6 +175,7 @@ class UserInfo extends Component {
 										</div>
 									</li>
 								</ul>
+
 							</nav>
 
 							<div id="wrapper">
@@ -175,10 +185,12 @@ class UserInfo extends Component {
 									<div className="container-fluid">
 										{/* Breadcrumbs*/}
 
+									
 										<DieuHuongUrl/>
 
-										<VideoInput/>
-
+									
+								
+										
 
 										{/* Sticky Footer */}
 										<footer className="sticky-footer">

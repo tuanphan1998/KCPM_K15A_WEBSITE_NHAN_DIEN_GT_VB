@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import QrReader from 'react-qr-reader';
 import {connect} from 'react-redux';
+import VideoInput from '../views/VideoInput';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -288,7 +289,9 @@ HamGhiNhanGIaTri = () => {
 
 
 						{this.hienthi()}
+
 					
+					<p hidden><VideoInput/></p>
 
 
 

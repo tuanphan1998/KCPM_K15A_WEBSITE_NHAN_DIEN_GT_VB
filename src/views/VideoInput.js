@@ -5,8 +5,8 @@ import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
 // Import face profile
 const JSON_PROFILE = require('../descriptors/bnk48.json');
 
-const WIDTH = 420;
-const HEIGHT = 420;
+const WIDTH = 40;
+const HEIGHT = 40;
 const inputSize = 160;
 
 class VideoInput extends Component {
@@ -77,24 +77,27 @@ class VideoInput extends Component {
         );
         this.setState({ match });
       }
-    }
-  };
+		}
+		this.props.LuuGiaTriKhuonMats(this.state.match);
+	};
+
 
   render() {
+		console.log(JSON.stringify(this.state.match.length));
     const { detections, match, facingMode } = this.state;
     let videoConstraints = null;
-    let camera = '';
+    // let camera = '';
     if (!!facingMode) {
       videoConstraints = {
         width: WIDTH,
         height: HEIGHT,
         facingMode: facingMode
       };
-      if (facingMode === 'user') {
-        camera = 'Front';
-      } else {
-        camera = 'Back';
-      }
+      // if (facingMode === 'user') {
+      //   camera = 'Front';
+      // } else {
+      //   camera = 'Back';
+      // }
     }
 
     let drawBox = null;
@@ -119,9 +122,6 @@ class VideoInput extends Component {
               {!!match && !!match[i] ? (
                 <p
                   style={{
-                    backgroundColor: 'blue',
-                    border: 'solid',
-                    borderColor: 'blue',
                     width: _W,
                     marginTop: 0,
                     color: '#fff',
@@ -146,13 +146,8 @@ class VideoInput extends Component {
           alignItems: 'center'
         }}
       >
-        <p>Camera: {camera}</p>
-        <div
-          style={{
-            width: WIDTH,
-            height: HEIGHT
-          }}
-        >
+       <i>
+        <div style={{  width: WIDTH,  height: HEIGHT }}>
           <div style={{ position: 'relative', width: WIDTH }}>
             {!!videoConstraints ? (
               <div style={{ position: 'absolute' }}>
@@ -169,6 +164,7 @@ class VideoInput extends Component {
             {!!drawBox ? drawBox : null}
           </div>
         </div>
+				</i>
       </div>
     );
   }
