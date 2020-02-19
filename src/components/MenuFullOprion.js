@@ -41,9 +41,15 @@ class MenuFullOprion extends Component {
 			{
 				return(
 					
-					<div>
-						{/* {this.logout()} */}
-					</div>
+				
+						<div className="alert alert-dark" role="alert">
+							<h4 className="alert-heading">Bạn phải có ý thức trong việc đăng nhập sản phẩm của chúng tôi !</h4>
+							<p>Chúng tôi phát hiện được bạn đăng nhập trái phép với một mã QR không hợp lệ và một tài khoản không hợp lệ chúng tôi sẽ đếm ngược và mời bạn ra ngoài</p>
+							<hr />
+							<p className="mb-0">Mọi hành động bạn nên cân nhắc thật kỹ trước khi muốn sử dụng hệ thống của chúng tôi vì chúng tôi đã lưu được lịch sử bạn login cũng như thời gian bạn truy cập vào hệ thống</p>
+							{/* {this.logout()} */}
+						</div>
+				
 					
 				)
 			}
