@@ -8,15 +8,18 @@ import dl from "../components/Data/DulieuVuaNhap.json";
 import MenuFullOprion from "./MenuFullOprion";
 import VideoInput from "../views/VideoInput";
 class UserInfo extends Component {
-    state = {
-       	email: null,
-				displayName: null,
-				photoURL : null,
-				uid : null,
-				dataBaseQR : [],
-				time: new Date()
-			};
-
+			constructor(props){
+				super(props);
+				this.state = {
+					email: null,
+					displayName: null,
+					photoURL : null,
+					uid : null,
+					dataBaseQR : [],
+					giatricotloi : Number,
+					time: new Date()
+				};
+			}
 			componentWillMount() {
 				if(localStorage.getItem('komsa') === null)
 				{
@@ -111,22 +114,57 @@ class UserInfo extends Component {
 		}
 
 
-		LuuGiaTriKhuonMat = (dl) => {
-				console.log(JSON.stringify(dl._label))
-				if(dl === null)
-				{
-				
-					console.log("không có người sử dụng");
-				}
-				else
-				{
-					console.log("có người sử dụng");
-				}
+
+		LuuGiaTriKhuonMat2 = (dl) => {
+			console.log(dl.length);
+					if(dl.length === 0)
+					{
+						this.setState({
+							giatricotloi : dl.length
+						});
+						setTimeout(function(){	firebase.auth().signOut();
+							window.location.reload();}, 20000);
+					}
+					else if(dl.length === 1)
+					{
+						this.setState({
+							giatricotloi : dl.length
+						});
+						setTimeout(function(){	firebase.auth().signOut();
+							window.location.reload();}, 90000);
+					}
+		}
+
+		hienthiketqua = () => {
+			if(this.state.giatricotloi === 1)
+			{
+				return("Bạn đang ngồi làm việc ");
+			}
+			else if(this.state.giatricotloi === 0)
+			{
+				return("Bạn rảnh háng nghỉ ngơi đi chúng tôi sẽ out trong 20 giây");
+			}
+		}
+
+		Dienguoc = () => {
+			if(this.state.giatricotloi === 1)
+			{
+				return(
+					"pedding"
+				)
+			}
+			else
+			{
+				return(
+					"endding"
+				)
+			}
 		}
 
 
+
+
   render() {
-		
    const logout = <button onClick={this.logout}>Log Out!</button>;
     if (!this.state.email) {
       return <Login authenticate={this.authenticate} />;
@@ -150,17 +188,17 @@ class UserInfo extends Component {
 								{/* Navbar */}
 								
 								<ul className="navbar-nav ml-auto ml-md-0">
-										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#myModal"><i className="fab fa-hubspot"></i></button>
-										<VideoInput LuuGiaTriKhuonMats={(dl)=>this.LuuGiaTriKhuonMat(dl)}/>
+										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#myModal"><i className="fab fa-hubspot"></i>:&nbsp;{this.hienthiketqua()}</button>
+										<VideoInput  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)}/>
 								</ul>
 
 
 								<ul className="navbar-nav ml-auto ml-md-0">
 									<li className="nav-item dropdown no-arrow">
 										<a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									
+			
 										<small className="alert alert-dark" role="alert">
-											<i className="fas fa-sign-out-alt"></i>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<i className="fas fa-sign-out-alt"></i>:&nbsp; {this.Dienguoc()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="far fa-user-circle"></i> :&nbsp;{this.dangTaiKhoan()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-clock"></i> :&nbsp;{this.state.time.toLocaleTimeString()}&nbsp;&nbsp;&nbsp;&nbsp;
 											{this.trangthaikichhoatQR()}
@@ -180,7 +218,7 @@ class UserInfo extends Component {
 
 							<div id="wrapper">
 								{/* Sidebar */}
-								<MenuFullOprion Phanquen={ketqua} mauuidgit={this.state.uid} />
+								<MenuFullOprion Phanquen={ketqua} mauuidgit={this.state.uid} giatricotlois={this.state.giatricotloi}/>
 								<div id="content-wrapper">
 									<div className="container-fluid">
 										{/* Breadcrumbs*/}

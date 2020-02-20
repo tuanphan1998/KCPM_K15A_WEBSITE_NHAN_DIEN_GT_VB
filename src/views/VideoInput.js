@@ -73,17 +73,16 @@ class VideoInput extends Component {
 
       if (!!this.state.descriptors && !!this.state.faceMatcher) {
         let match = await this.state.descriptors.map(descriptor =>
-          this.state.faceMatcher.findBestMatch(descriptor)
+					this.state.faceMatcher.findBestMatch(descriptor)
         );
         this.setState({ match });
-      }
+			}
+			this.props.LuuGiaTriKhuonMats2(this.state.match);
 		}
-		this.props.LuuGiaTriKhuonMats(this.state.match);
 	};
 
 
   render() {
-		console.log(JSON.stringify(this.state.match.length));
     const { detections, match, facingMode } = this.state;
     let videoConstraints = null;
     // let camera = '';
@@ -124,7 +123,7 @@ class VideoInput extends Component {
                   style={{
                     width: _W,
                     marginTop: 0,
-                    color: '#fff',
+                    color: 'black',
                     transform: `translate(-3px,${_H}px)`
                   }}
                 >

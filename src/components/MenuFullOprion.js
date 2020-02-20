@@ -6,7 +6,7 @@ class MenuFullOprion extends Component {
 			if(this.props.Phanquen.length === 0)
 			{
 				setTimeout(function(){	firebase.auth().signOut();
-					window.location.reload();}, 60000);
+					window.location.reload();}, 90000);
 			}
 };
 
