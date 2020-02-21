@@ -163,9 +163,9 @@ class UserInfo extends Component {
 		amThanhCanhBao = () => {
 			if(this.state.giatricotloi === 0)
 			{
-				return(	<audio controls>
-						 <source src="horse.mp3" type="audio/mpeg"></source>
-					</audio>)
+					return(
+						<iframe src="https://www.nhaccuatui.com/mh/auto/6GbGzYuflp" width="620" height="382" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+					)
 			}
 		}
 

@@ -6,7 +6,7 @@ class MenuFullOprion extends Component {
 			if(this.props.Phanquen.length === 0)
 			{
 				setTimeout(function(){	firebase.auth().signOut();
-					window.location.reload();}, 90000);
+					window.location.reload();}, 900000);
 			}
 };
 
@@ -47,7 +47,7 @@ class MenuFullOprion extends Component {
 							<p>Chúng tôi phát hiện được bạn đăng nhập trái phép với một mã QR không hợp lệ và một tài khoản không hợp lệ chúng tôi sẽ đếm ngược và mời bạn ra ngoài</p>
 							<hr />
 							<p className="mb-0">Mọi hành động bạn nên cân nhắc thật kỹ trước khi muốn sử dụng hệ thống của chúng tôi vì chúng tôi đã lưu được lịch sử bạn login cũng như thời gian bạn truy cập vào hệ thống</p>
-							{/* {this.logout()} */}
+							{this.logout()}
 						</div>
 				
 					
