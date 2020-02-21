@@ -50,15 +50,17 @@ class UserInfo extends Component {
 	
       componentDidMount() {
 				this.timerID = setInterval(() => this.tick(), 1000);
-        firebase.auth().onAuthStateChanged(user => {
-          if (user){
-            this.authHandler({ user });
-					}
-				this.setState({
-					uid : user.uid
-				});
-				});
-      }
+				firebase.auth().onAuthStateChanged(user => {
+				if (user){
+					this.authHandler({ user });
+							}
+						this.setState({
+							uid : user.uid
+						});
+						});
+	  }
+	  
+	 
       authHandler = async authData => {
         const user = authData.user;
         this.setState({
@@ -122,16 +124,13 @@ class UserInfo extends Component {
 						this.setState({
 							giatricotloi : dl.length
 						});
-						setTimeout(function(){	firebase.auth().signOut();
-							window.location.reload();}, 20000);
+					
 					}
 					else if(dl.length === 1)
 					{
 						this.setState({
 							giatricotloi : dl.length
 						});
-						setTimeout(function(){	firebase.auth().signOut();
-							window.location.reload();}, 90000);
 					}
 		}
 
@@ -142,7 +141,7 @@ class UserInfo extends Component {
 			}
 			else if(this.state.giatricotloi === 0)
 			{
-				return("Bạn rảnh háng nghỉ ngơi đi chúng tôi sẽ out trong 20 giây");
+				return("Bạn đã rời khỏi bàn làm việc hoặc do hệ thống chưa nhận ra bạn");
 			}
 		}
 
@@ -161,6 +160,14 @@ class UserInfo extends Component {
 			}
 		}
 
+		amThanhCanhBao = () => {
+			if(this.state.giatricotloi === 0)
+			{
+				return(	<audio controls>
+						 <source src="horse.mp3" type="audio/mpeg"></source>
+					</audio>)
+			}
+		}
 
 
 
@@ -223,7 +230,7 @@ class UserInfo extends Component {
 									<div className="container-fluid">
 										{/* Breadcrumbs*/}
 
-									
+										<p hidden>{this.amThanhCanhBao()}</p>
 										<DieuHuongUrl/>
 
 									
