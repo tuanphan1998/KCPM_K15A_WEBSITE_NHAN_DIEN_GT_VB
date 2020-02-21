@@ -118,7 +118,6 @@ class UserInfo extends Component {
 
 
 		LuuGiaTriKhuonMat2 = (dl) => {
-			console.log(dl.length);
 					if(dl.length === 0)
 					{
 						this.setState({
@@ -161,11 +160,22 @@ class UserInfo extends Component {
 		}
 
 		amThanhCanhBao = () => {
+			//let getNgay = new Date();
 			if(this.state.giatricotloi === 0)
 			{
+				let getNgay = new Date();
+				if(getNgay.getSeconds(0) === 59)
+				{
+					console.log("ma da chay")
+						firebase.auth().signOut();
+					window.location.reload();
+				}
+				else
+				{
 					return(
-						<iframe src="https://www.nhaccuatui.com/mh/auto/6GbGzYuflp" width="620" height="382" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+						<iframe src="https://www.nhaccuatui.com/mh/auto/6GbGzYuflp" width="620" height="382" title="demo" frameborder="0" allowfullscreen allow="autoplay"></iframe>
 					)
+				}
 			}
 		}
 
