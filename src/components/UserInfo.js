@@ -17,6 +17,7 @@ class UserInfo extends Component {
 					uid : null,
 					dataBaseQR : [],
 					giatricotloi : Number,
+					tuoitac : Number,
 					time: new Date()
 				};
 			}
@@ -133,6 +134,20 @@ class UserInfo extends Component {
 					}
 		}
 
+
+		LuuGiaTriKhuonMat3 = (dl) => {
+			console.log(dl);
+				if(dl.length !== 0)
+				{		
+					if(dl < 13)
+					{
+						console.log("đúng rồi đấy");
+						firebase.auth().signOut();
+						window.location.reload();
+					}
+				}
+}
+
 		hienthiketqua = () => {
 			if(this.state.giatricotloi === 1)
 			{
@@ -206,7 +221,7 @@ class UserInfo extends Component {
 								
 								<ul className="navbar-nav ml-auto ml-md-0">
 										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#myModal"><i className="fab fa-hubspot"></i>:&nbsp;{this.hienthiketqua()}</button>
-										<VideoInput  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)}/>
+										<VideoInput  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
 								</ul>
 
 
@@ -240,7 +255,7 @@ class UserInfo extends Component {
 									<div className="container-fluid">
 										{/* Breadcrumbs*/}
 
-										<p hidden>{this.amThanhCanhBao()}</p>
+										{/* <p hidden>{this.amThanhCanhBao()}</p> */}
 										<DieuHuongUrl/>
 
 									

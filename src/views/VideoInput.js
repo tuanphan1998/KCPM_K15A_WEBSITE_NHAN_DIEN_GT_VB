@@ -66,7 +66,9 @@ class VideoInput extends Component {
         if (!!fullDesc) {
           this.setState({
             detections: fullDesc.map(fd => fd.detection),
-            descriptors: fullDesc.map(fd => fd.descriptor)
+						descriptors: fullDesc.map(fd => fd.descriptor),
+						gender : fullDesc.map(fd => fd.gender),
+            age : fullDesc.map(fd => fd.age)
           });
         }
       });
@@ -78,6 +80,7 @@ class VideoInput extends Component {
         this.setState({ match });
 			}
 			this.props.LuuGiaTriKhuonMats2(this.state.match);
+			this.props.LuuGiaTriKhuonMats3(this.state.age);
 		}
 	};
 
@@ -121,13 +124,18 @@ class VideoInput extends Component {
               {!!match && !!match[i] ? (
                 <p
                   style={{
-                    width: _W,
-                    marginTop: 0,
-                    color: 'black',
+										width: _W,
+										fontSize:20,
+                    marginTop: 8,
+                    color: '#339999',
                     transform: `translate(-3px,${_H}px)`
                   }}
                 >
                   {match[i]._label}
+									<br/>
+                  {this.state.gender}
+                  <br/>
+                  {Math.ceil(this.state.age)}
                 </p>
               ) : null}
             </div>
