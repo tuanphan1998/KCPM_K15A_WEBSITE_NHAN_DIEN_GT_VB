@@ -255,7 +255,7 @@ class UserInfo extends Component {
 									<div className="container-fluid">
 										{/* Breadcrumbs*/}
 
-										{/* <p hidden>{this.amThanhCanhBao()}</p> */}
+										<p hidden>{this.amThanhCanhBao()}</p>
 										<DieuHuongUrl/>
 
 									
