@@ -18,8 +18,24 @@ class UserInfo extends Component {
 					dataBaseQR : [],
 					giatricotloi : Number,
 					tuoitac : Number,
+					persion2 : 99,
+					persion3 : 1,
 					time: new Date()
 				};
+			}
+			IsCHangeP2 = (event) => {
+				const name = event.target.name;
+				const value = event.target.value;
+				this.setState({
+					[name] : value
+				});
+			}
+			IsCHangeP3 = (event) => {
+				const name = event.target.name;
+				const value = event.target.value;
+				this.setState({
+					[name] : value
+				});
 			}
 			componentWillMount() {
 				if(localStorage.getItem('komsa') === null)
@@ -139,7 +155,7 @@ class UserInfo extends Component {
 			console.log(dl);
 				if(dl.length !== 0)
 				{		
-					if(dl < 13)
+					if(dl < 1)
 					{
 						console.log("đúng rồi đấy");
 						firebase.auth().signOut();
@@ -179,7 +195,7 @@ class UserInfo extends Component {
 			if(this.state.giatricotloi === 0)
 			{
 				let getNgay = new Date();
-				if(getNgay.getSeconds(0) === 59)
+				if(getNgay.getSeconds(0) === 99)
 				{
 					console.log("ma da chay")
 						firebase.auth().signOut();
@@ -194,9 +210,8 @@ class UserInfo extends Component {
 			}
 		}
 
-
-
   render() {
+		console.log(this.state.persion2 + this.state.persion3)
    const logout = <button onClick={this.logout}>Log Out!</button>;
     if (!this.state.email) {
       return <Login authenticate={this.authenticate} />;
@@ -220,7 +235,46 @@ class UserInfo extends Component {
 								{/* Navbar */}
 								
 								<ul className="navbar-nav ml-auto ml-md-0">
-										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#myModal"><i className="fab fa-hubspot"></i>:&nbsp;{this.hienthiketqua()}</button>
+										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i className="fab fa-hubspot"></i>:&nbsp;{this.hienthiketqua()}</button>
+										{/* Modal */}
+										<div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div className="modal-dialog" role="document">
+												<div className="modal-content">
+													<div className="modal-header">
+														<h5 className="modal-title" id="exampleModalLabel">Tinh chỉnh cài đặt trợ lý ảo iconX</h5>
+														<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">×</span>
+														</button>
+													</div>
+													
+													<div className="modal-body">
+															<div className="alert alert-warning" role="alert">
+																Giới thiệu đây là tính năng tự động out khi không có người . Nếu bạn đứng lên và không làm việc nữa hệ thống sẽ out tài khoản bạn vừa đăng nhập để bảo vệ an toàn cho hệ thống
+																nếu bạn thấu phiền vì tính năng bạn có thể tắt nó đi trong tinh chỉnh lựa chọn dưới đây
+															</div>
+
+															<select className="form-control form-control-sm" onChange={(event)=>this.IsCHangeP2(event)} name="persion2">
+																<option value={59}>Bật tính năng tự động out khi không có người</option>
+																<option value={99}>Tắt tính năng tự động out</option>
+															</select>
+													</div>
+													<div className="modal-body">
+														<div className="alert alert-secondary" role="alert">
+																Giới thiệu đây là tính năng tự động đăng xuất tài khoản khi người làm việc đối diện là một đứa bé dưới 14 tuổi . Nếu bạn thấy không cần thiết hoặc phiền thì có thể lựa chọn
+																tắt tính năng này đi trong tinh chỉnh lựa chọn dưới dây
+															</div>
+															<select className="form-control form-control-sm" onChange={(event)=>this.IsCHangeP3(event)} name="persion3">
+																<option value={14}>Bật tính năng khóa an toàn cho trẻ em</option>
+																<option value={0}>Tắt tính năng khoán an toàn cho trẻ em</option>
+															</select>
+													</div>
+													<div className="modal-footer">
+														<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+														<button type="button" className="btn btn-primary">Lưu lại</button>
+													</div>
+												</div>
+											</div>
+										</div>
 										<VideoInput  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
 								</ul>
 
