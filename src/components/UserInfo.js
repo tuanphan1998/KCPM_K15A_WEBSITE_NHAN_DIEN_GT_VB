@@ -1,12 +1,13 @@
 import React, { Component , Fragment } from "react";
 import Login from "./Login";
 import   firebase from "firebase";
-import {firebasefor} from '../firebaseconnectio';
+import {firebasefor, firebasefive} from '../firebaseconnectio';
 import  { firebaseApp } from "../firebaseconnectio";
 import DieuHuongUrl from  './../router/DieuHuongUrl';
 import dl from "../components/Data/DulieuVuaNhap.json";
 import MenuFullOprion from "./MenuFullOprion";
 import VideoInput from "../views/VideoInput";
+import {connect} from 'react-redux';
 class UserInfo extends Component {
 			constructor(props){
 				super(props);
@@ -16,10 +17,11 @@ class UserInfo extends Component {
 					photoURL : null,
 					uid : null,
 					dataBaseQR : [],
+					iconX : [],
 					giatricotloi : Number,
 					tuoitac : Number,
-					persion2 : 99,
-					persion3 : 1,
+					persion2 : "99",
+					persion3 : "00",
 					time: new Date()
 				};
 			}
@@ -61,6 +63,23 @@ class UserInfo extends Component {
 					});
 					this.setState({
 						dataBaseQR : Mang,
+					});
+				})
+
+
+				firebasefive.on('value',(datas) => {
+					var Mang2 = [];
+					datas.forEach(element => {
+						const outtaikhoan = element.val().outtaikhoan;
+						const treem = element.val().treem;
+						Mang2.push({
+		
+								outtaikhoan : outtaikhoan,
+								treem : treem,
+							})
+					});
+					this.setState({
+						iconX : Mang2,
 					});
 				})
 			}
@@ -155,11 +174,14 @@ class UserInfo extends Component {
 			console.log(dl);
 				if(dl.length !== 0)
 				{		
-					if(dl < 1)
+					let goc = JSON.stringify(this.state.iconX);
+					let cut2 = goc.slice(30,-3);
+					if(Number(dl) < Number(cut2))
 					{
 						console.log("đúng rồi đấy");
 						firebase.auth().signOut();
-						window.location.reload();
+						setTimeout(function(){window.location.reload() }, 2000);
+						
 					}
 				}
 }
@@ -167,26 +189,11 @@ class UserInfo extends Component {
 		hienthiketqua = () => {
 			if(this.state.giatricotloi === 1)
 			{
-				return("Bạn đang ngồi làm việc ");
+				return("Đang ngồi làm việc");
 			}
 			else if(this.state.giatricotloi === 0)
 			{
-				return("Bạn đã rời khỏi bàn làm việc hoặc do hệ thống chưa nhận ra bạn");
-			}
-		}
-
-		Dienguoc = () => {
-			if(this.state.giatricotloi === 1)
-			{
-				return(
-					"pedding"
-				)
-			}
-			else
-			{
-				return(
-					"endding"
-				)
+				return("Không làm thì bật tính năng tự out nhé");
 			}
 		}
 
@@ -194,8 +201,10 @@ class UserInfo extends Component {
 			//let getNgay = new Date();
 			if(this.state.giatricotloi === 0)
 			{
+				let goc = JSON.stringify(this.state.iconX);
+				let cut = goc.slice(17,-16);
 				let getNgay = new Date();
-				if(getNgay.getSeconds(0) === 99)
+				if(getNgay.getSeconds(0) === Number(cut))
 				{
 					console.log("ma da chay")
 						firebase.auth().signOut();
@@ -210,8 +219,42 @@ class UserInfo extends Component {
 			}
 		}
 
+		ThemmoiCacThuQuanTrongveIconx = () => {
+			let info = {};
+			info.outtaikhoan = this.state.persion2;
+			info.treem = this.state.persion3;
+			this.props.ThaydoidulieuvoncoSSS(info);
+		}
+
+		duaRaKetQua = () => {
+			let goc = JSON.stringify(this.state.iconX);
+			let cut = goc.slice(17,-16);
+			if(cut === "59")
+			{
+				return("Tự động out đã bật");
+			}
+			else
+			{
+				return("Tự động out đã tắt");
+			}
+		}
+
+		duaRaKetQua2 = () => {
+			let goc = JSON.stringify(this.state.iconX);
+			let cut = goc.slice(30,-3);
+			if(cut === "00")
+			{
+				return("OFF security baby");
+			}
+			else
+			{
+				return("ON security baby");
+			}
+		}
+
+
+
   render() {
-		console.log(this.state.persion2 + this.state.persion3)
    const logout = <button onClick={this.logout}>Log Out!</button>;
     if (!this.state.email) {
       return <Login authenticate={this.authenticate} />;
@@ -254,8 +297,9 @@ class UserInfo extends Component {
 															</div>
 
 															<select className="form-control form-control-sm" onChange={(event)=>this.IsCHangeP2(event)} name="persion2">
-																<option value={59}>Bật tính năng tự động out khi không có người</option>
-																<option value={99}>Tắt tính năng tự động out</option>
+																<option value={"-"}>Lựa chọn đuê</option>
+																<option value={"59"}>Bật tính năng tự động out khi không có người</option>
+																<option value={"99"}>Tắt tính năng tự động out</option>
 															</select>
 													</div>
 													<div className="modal-body">
@@ -264,13 +308,13 @@ class UserInfo extends Component {
 																tắt tính năng này đi trong tinh chỉnh lựa chọn dưới dây
 															</div>
 															<select className="form-control form-control-sm" onChange={(event)=>this.IsCHangeP3(event)} name="persion3">
-																<option value={14}>Bật tính năng khóa an toàn cho trẻ em</option>
-																<option value={0}>Tắt tính năng khoán an toàn cho trẻ em</option>
+															<option value={"-"}>Lựa chọn đuê</option>
+																<option value={"14"}>Bật tính năng khóa an toàn cho trẻ em</option>
+																<option value={"00"}>Tắt tính năng khoán an toàn cho trẻ em</option>
 															</select>
 													</div>
 													<div className="modal-footer">
-														<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-														<button type="button" className="btn btn-primary">Lưu lại</button>
+														<button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={()=>this.ThemmoiCacThuQuanTrongveIconx()}>Lưu lại</button>
 													</div>
 												</div>
 											</div>
@@ -284,7 +328,8 @@ class UserInfo extends Component {
 										<a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			
 										<small className="alert alert-dark" role="alert">
-											<i className="fas fa-sign-out-alt"></i>:&nbsp; {this.Dienguoc()}&nbsp;&nbsp;&nbsp;&nbsp;
+											<i className="fas fa-sign-out-alt"></i>:&nbsp; {this.duaRaKetQua()}&nbsp;&nbsp;&nbsp;&nbsp;
+											<i className="fas fa-baby"></i>:&nbsp; {this.duaRaKetQua2()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="far fa-user-circle"></i> :&nbsp;{this.dangTaiKhoan()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-clock"></i> :&nbsp;{this.state.time.toLocaleTimeString()}&nbsp;&nbsp;&nbsp;&nbsp;
 											{this.trangthaikichhoatQR()}
@@ -356,5 +401,16 @@ class UserInfo extends Component {
     );
   }
 }
-
-export default UserInfo;
+const mapStateToProps = (state, ownProps) => {
+	return {
+			GetData: state.laydata
+	}
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		ThaydoidulieuvoncoSSS: (getupdate) => {
+					dispatch({type:'THEM_LAN_THOI',getupdate})
+			},
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

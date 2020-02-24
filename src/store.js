@@ -8,6 +8,7 @@ import reducer7 from './reducer/reducer7';
 import reducer8 from './reducer/reducer8';
 import reducer9 from './reducer/reducer9';
 import reducerFE from './reducer/reducerFE';
+import reducerFE2 from './reducer/reducerFE2';
 
 var redux = require('redux');
 
@@ -21,7 +22,8 @@ var allreducer = redux.combineReducers({
 		updatematsau : reducer7,
 		nhaplieuapi : reducer8,
 		laymaDecode : reducer9,
-		suamaQR : reducerFE
+		suamaQR : reducerFE,
+		themmoimotIDs : reducerFE2
 })
 
 var store = redux.createStore(allreducer);
