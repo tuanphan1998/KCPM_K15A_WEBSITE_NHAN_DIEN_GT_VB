@@ -5,8 +5,13 @@ class MenuFullOprion extends Component {
   logout =  () => {
 			if(this.props.Phanquen.length === 0)
 			{
-				setTimeout(function(){	firebase.auth().signOut();
-					window.location.reload();}, 900000);
+				let getNgay = new Date();
+				console.log(getNgay.getSeconds());
+				if(getNgay.getSeconds() === 59)
+				{
+					firebase.auth().signOut();
+					window.location.reload();
+				}
 			}
 };
 

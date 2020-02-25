@@ -206,9 +206,8 @@ class UserInfo extends Component {
 				let getNgay = new Date();
 				if(getNgay.getSeconds(0) === Number(cut))
 				{
-					console.log("ma da chay")
-						firebase.auth().signOut();
-					window.location.reload();
+					setTimeout(function(){ 	firebase.auth().signOut();
+					window.location.reload(); }, 2000);
 				}
 				else
 				{
