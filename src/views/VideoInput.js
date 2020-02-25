@@ -5,8 +5,8 @@ import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
 // Import face profile
 const JSON_PROFILE = require('../descriptors/bnk48.json');
 
-const WIDTH = 40;
-const HEIGHT = 40;
+const WIDTH = 420;
+const HEIGHT = 420;
 const inputSize = 160;
 
 class VideoInput extends Component {
@@ -18,7 +18,8 @@ class VideoInput extends Component {
       detections: null,
       descriptors: null,
       faceMatcher: null,
-      match: null,
+			match: null,
+			camxuc : null,
       facingMode: null
     };
   }
@@ -68,9 +69,10 @@ class VideoInput extends Component {
             detections: fullDesc.map(fd => fd.detection),
 						descriptors: fullDesc.map(fd => fd.descriptor),
 						gender : fullDesc.map(fd => fd.gender),
-            age : fullDesc.map(fd => fd.age)
-          });
-        }
+						age : fullDesc.map(fd => fd.age),
+					});
+				}
+				
       });
 
       if (!!this.state.descriptors && !!this.state.faceMatcher) {
