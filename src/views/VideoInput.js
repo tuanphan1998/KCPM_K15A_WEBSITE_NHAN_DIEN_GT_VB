@@ -60,19 +60,17 @@ class VideoInput extends Component {
 
   capture = async () => {
     if (!!this.webcam.current) {
-      await getFullFaceDescription(
-        this.webcam.current.getScreenshot(),
-        inputSize
-      ).then(fullDesc => {
+      await getFullFaceDescription(this.webcam.current.getScreenshot(), inputSize ).then(fullDesc => {
         if (!!fullDesc) {
           this.setState({
             detections: fullDesc.map(fd => fd.detection),
 						descriptors: fullDesc.map(fd => fd.descriptor),
 						gender : fullDesc.map(fd => fd.gender),
 						age : fullDesc.map(fd => fd.age),
+						camxuc : fullDesc.map(fd => fd.expressions),
 					});
+					console.log(this.state.camxuc);
 				}
-				
       });
 
       if (!!this.state.descriptors && !!this.state.faceMatcher) {
@@ -90,18 +88,12 @@ class VideoInput extends Component {
   render() {
     const { detections, match, facingMode } = this.state;
     let videoConstraints = null;
-    // let camera = '';
     if (!!facingMode) {
       videoConstraints = {
         width: WIDTH,
         height: HEIGHT,
         facingMode: facingMode
       };
-      // if (facingMode === 'user') {
-      //   camera = 'Front';
-      // } else {
-      //   camera = 'Back';
-      // }
     }
 
     let drawBox = null;
@@ -138,6 +130,7 @@ class VideoInput extends Component {
                   {this.state.gender}
                   <br/>
                   {Math.ceil(this.state.age)}
+									
                 </p>
               ) : null}
             </div>
