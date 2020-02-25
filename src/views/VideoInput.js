@@ -5,8 +5,8 @@ import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
 // Import face profile
 const JSON_PROFILE = require('../descriptors/bnk48.json');
 
-const WIDTH = 420;
-const HEIGHT = 420;
+const WIDTH = 90;
+const HEIGHT = 40;
 const inputSize = 160;
 
 class VideoInput extends Component {
