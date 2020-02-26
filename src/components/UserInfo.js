@@ -98,22 +98,32 @@ class UserInfo extends Component {
 				}
 				else if(this.state.trangthai === 3)
 				{
+					this.props.ThuchienthaydoitrangthaiA();
+					this.props.ThuchienlaydulieuA("bạn ơi đừng buồn nhé tui cũng buồn lắm nếu bạn thấy buồn thì bạn hãy ra ngoài đi chơi nhé 😨. Đừng quên chọn tính năng tự out 🏔 🗻. Chúc cho nỗi buồn của bạn sớm được vơi đi 😲");
 					return(<b><i className="fas fa-sad-tear"></i>:&nbsp;Buồn lắm</b>)
 				}
 				else if(this.state.trangthai === 4)
 				{
+					this.props.ThuchienthaydoitrangthaiA();
+					this.props.ThuchienlaydulieuA("bạn ơi có không hài lòng ☹️ gì về hệ thống bạn hãy gửi cho mình kiến nghị tại gmail tuanphani.c.t@gmail.com nhé 😰");
 					return(<b><i className="fas fa-angry"></i>:&nbsp;Bực bội</b>)
 				}
 				else if(this.state.trangthai === 5)
 				{
+					this.props.ThuchienthaydoitrangthaiA();
+					this.props.ThuchienlaydulieuA("bạn đừng sợ có tôi đây rồi tôi sẽ kích hoạt tính năng tự động out tài khoản bạn 🤬 đừng cung cấp thông tin gì cho kẻ đang hại bạn nhé 😠");
 					return(<b><i className="fas fa-ghost"></i>:&nbsp;Sợ hãi</b>)
 				}
 				else if(this.state.trangthai === 6)
 				{
+					this.props.ThuchienthaydoitrangthaiA();
+					this.props.ThuchienlaydulieuA("bạn đừng chán nhé 🤗. Tôi sẽ mở cho bạn nghe một bản nhạc hay để bạn thấy thư dãn ơn nhé hoặc bạn có thể ra ngoài cũng được 😋 . Nhưng phải bật tính năng tự động out tôi mới chạy cơ 😘");
 					return(<b><i className="fas fa-frown-open"></i>:&nbsp;Chán ghét</b>)
 				}
 				else if(this.state.trangthai === 7)
 				{
+					this.props.ThuchienthaydoitrangthaiA();
+					this.props.ThuchienlaydulieuA("bạn tìm được thông tin gì làm mình thích thú à 🤗 🤩 . Hay là lời tâm sự của một anh đẹp trai nào đó hoặc một cô gái mà bạn thích 😛 😜. Thả tym bạn");
 					return(<b><i className="fas fa-flushed"></i>:&nbsp;Ngạc nhiên</b>)
 				}
 			}
@@ -308,6 +318,8 @@ class UserInfo extends Component {
 			info.outtaikhoan = this.state.persion2;
 			info.treem = this.state.persion3;
 			this.props.ThaydoidulieuvoncoSSS(info);
+			this.props.ThuchienthaydoitrangthaiA();
+			this.props.ThuchienlaydulieuA("bạn đã thay đổi cài đặt thành công");
 		}
 
 		duaRaKetQua = () => {
@@ -497,6 +509,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		ThaydoidulieuvoncoSSS: (getupdate) => {
 					dispatch({type:'THEM_LAN_THOI',getupdate})
 			},
+			ThuchienthaydoitrangthaiA: () => {
+				dispatch({type:'TRANG_THAI'})
+		},
+		ThuchienlaydulieuA: (getitem) => {
+				dispatch({type:'GETDATA',getitem})
+		}
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
