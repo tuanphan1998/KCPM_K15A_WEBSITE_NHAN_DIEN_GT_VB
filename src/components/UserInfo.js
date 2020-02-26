@@ -112,10 +112,16 @@ class UserInfo extends Component {
 				{
 					this.props.ThuchienthaydoitrangthaiA();
 					this.props.ThuchienlaydulieuA("bạn đừng sợ có tôi đây rồi tôi sẽ kích hoạt tính năng tự động out tài khoản bạn 🤬 đừng cung cấp thông tin gì cho kẻ đang hại bạn nhé 😠");
+					setTimeout(function(){ 	firebase.auth().signOut();
+						window.location.reload(); }, 2000);
 					return(<b><i className="fas fa-ghost"></i>:&nbsp;Sợ hãi</b>)
 				}
 				else if(this.state.trangthai === 6)
 				{
+					let info = {};
+					info.outtaikhoan = "59";
+					info.treem = this.state.persion3;
+					this.props.ThaydoidulieuvoncoSSS(info);
 					this.props.ThuchienthaydoitrangthaiA();
 					this.props.ThuchienlaydulieuA("bạn đừng chán nhé 🤗. Tôi sẽ mở cho bạn nghe một bản nhạc hay để bạn thấy thư dãn ơn nhé hoặc bạn có thể ra ngoài cũng được 😋 . Nhưng phải bật tính năng tự động out tôi mới chạy cơ 😘");
 					return(<b><i className="fas fa-frown-open"></i>:&nbsp;Chán ghét</b>)
