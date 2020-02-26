@@ -18,6 +18,7 @@ class UserInfo extends Component {
 					uid : null,
 					dataBaseQR : [],
 					iconX : [],
+					trangthai : Number,
 					giatricotloi : Number,
 					tuoitac : Number,
 					persion2 : "99",
@@ -25,12 +26,96 @@ class UserInfo extends Component {
 					time: new Date()
 				};
 			}
+			camxucCuaNhanVien = (dl) => {
+					if(dl !== undefined)
+					{
+						if(dl.neutral > dl.happy && dl.neutral > dl.sad && dl.neutral > dl.angry && dl.neutral > dl.fearful && dl.neutral > dl.disgusted && dl.neutral > dl.surprised)
+						{
+							console.log("Cảm xúc bình thường");
+							this.setState({
+								trangthai : 1
+							});
+						}
+						else if(dl.happy > dl.neutral && dl.happy > dl.sad && dl.happy > dl.angry && dl.happy > dl.fearful && dl.happy > dl.disgusted && dl.happy > dl.surprised)
+						{
+							console.log("Cảm xúc vui vẻ");
+							this.setState({
+								trangthai : 2
+							});
+						}
+						else if(dl.sad > dl.neutral && dl.sad > dl.happy && dl.sad > dl.angry && dl.sad > dl.fearful && dl.sad > dl.disgusted && dl.sad > dl.surprised)
+						{
+							console.log("Cảm xúc buồn");
+							this.setState({
+								trangthai : 3
+							});
+						}
+						else if(dl.angry > dl.neutral && dl.angry > dl.happy && dl.angry > dl.sad && dl.angry > dl.fearful && dl.angry > dl.disgusted && dl.angry > dl.surprised)
+						{
+							console.log("Cảm xúc bực bội");
+							this.setState({
+								trangthai : 4
+							});
+						}
+						else if(dl.fearful > dl.neutral && dl.fearful > dl.happy && dl.fearful > dl.sad && dl.fearful > dl.angry && dl.fearful > dl.disgusted && dl.fearful > dl.surprised)
+						{
+							console.log("Cảm xúc Sợ hãi");
+							this.setState({
+								trangthai : 5
+							});
+						}
+						else if(dl.disgusted > dl.neutral && dl.disgusted > dl.happy && dl.disgusted > dl.sad && dl.disgusted > dl.angry && dl.disgusted > dl.fearful && dl.disgusted > dl.surprised)
+						{
+							console.log("Cảm xúc chán ghét");
+							this.setState({
+								trangthai : 6
+							});
+						}
+						else if(dl.surprised > dl.neutral && dl.surprised > dl.happy && dl.surprised > dl.sad && dl.surprised > dl.angry && dl.surprised > dl.fearful && dl.surprised > dl.disgusted)
+						{
+							console.log("Cảm xúc ngạc nhiên");
+							this.setState({
+								trangthai : 7
+							});
+						}
+					}
+			}
 			IsCHangeP2 = (event) => {
 				const name = event.target.name;
 				const value = event.target.value;
 				this.setState({
 					[name] : value
 				});
+			}
+			camXucHienThi = () => {
+				if(this.state.trangthai === 1)
+				{
+					return(<b><i className="far fa-meh"></i>:&nbsp;Bình thường</b>)
+				}
+				else if(this.state.trangthai === 2)
+				{
+					return(<b><i className="fas fa-smile-beam"></i>:&nbsp;Vui vẻ</b>)
+				}
+				else if(this.state.trangthai === 3)
+				{
+					return(<b><i className="fas fa-sad-tear"></i>:&nbsp;Buồn lắm</b>)
+				}
+				else if(this.state.trangthai === 4)
+				{
+					return(<b><i className="fas fa-angry"></i>:&nbsp;Bực bội</b>)
+				}
+				else if(this.state.trangthai === 5)
+				{
+					return(<b><i className="fas fa-ghost"></i>:&nbsp;Sợ hãi</b>)
+				}
+				else if(this.state.trangthai === 6)
+				{
+					return(<b><i className="fas fa-frown-open"></i>:&nbsp;Chán ghét</b>)
+				}
+				else if(this.state.trangthai === 7)
+				{
+					return(<b><i className="fas fa-flushed"></i>:&nbsp;Ngạc nhiên</b>)
+				}
 			}
 			IsCHangeP3 = (event) => {
 				const name = event.target.name;
@@ -318,7 +403,7 @@ class UserInfo extends Component {
 												</div>
 											</div>
 										</div>
-										<VideoInput  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
+										<VideoInput  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} camxucCuaNhanVienss={(dl)=>this.camxucCuaNhanVien(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
 								</ul>
 
 
@@ -327,10 +412,12 @@ class UserInfo extends Component {
 										<a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			
 										<small className="alert alert-dark" role="alert">
+											{this.camXucHienThi()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-sign-out-alt"></i>:&nbsp; {this.duaRaKetQua()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-baby"></i>:&nbsp; {this.duaRaKetQua2()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="far fa-user-circle"></i> :&nbsp;{this.dangTaiKhoan()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-clock"></i> :&nbsp;{this.state.time.toLocaleTimeString()}&nbsp;&nbsp;&nbsp;&nbsp;
+										
 											{this.trangthaikichhoatQR()}
 										</small>
 										<img src={this.state.photoURL} alt="logo" style={{width: '40px'}} />

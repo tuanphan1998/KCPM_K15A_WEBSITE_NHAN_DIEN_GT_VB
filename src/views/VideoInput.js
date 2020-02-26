@@ -69,7 +69,7 @@ class VideoInput extends Component {
 						age : fullDesc.map(fd => fd.age),
 						camxuc : fullDesc.map(fd => fd.expressions),
 					});
-					console.log(this.state.camxuc);
+					this.props.camxucCuaNhanVienss(this.state.camxuc[0]);
 				}
       });
 
