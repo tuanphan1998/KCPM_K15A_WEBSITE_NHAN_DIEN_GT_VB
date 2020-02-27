@@ -10,7 +10,7 @@ class AleartInfo extends Component {
     render() {
         return (
             <AlertContainer>
-                <Alert timeout={10000} onDismiss={()=>this.HanLer()} type="success">{this.props.ThucHienTrangThaiDuLieu}</Alert>
+                <Alert timeout={8000} onDismiss={()=>this.HanLer()} type="success">{this.props.ThucHienTrangThaiDuLieu}</Alert>
             </AlertContainer>
         );
     }
