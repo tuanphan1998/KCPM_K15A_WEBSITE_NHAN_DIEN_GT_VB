@@ -23,6 +23,7 @@ class UserInfo extends Component {
 					tuoitac : Number,
 					persion2 : "99",
 					persion3 : "00",
+					persion4 : "0",
 					time: new Date()
 				};
 			}
@@ -87,7 +88,16 @@ class UserInfo extends Component {
 					[name] : value
 				});
 			}
+			IsCHangeP4 = (event) => {
+				const name = event.target.name;
+				const value = event.target.value;
+				this.setState({
+					[name] : value
+				});
+			}
 			camXucHienThi = () => {
+				let goc = JSON.stringify(this.state.iconX);
+				let cut2 = goc.slice(21,-35);
 				if(this.state.trangthai === 1)
 				{
 					return(<b><i className="far fa-meh"></i>:&nbsp;Bình thường</b>)
@@ -98,38 +108,52 @@ class UserInfo extends Component {
 				}
 				else if(this.state.trangthai === 3)
 				{
-					this.props.ThuchienthaydoitrangthaiA();
-					this.props.ThuchienlaydulieuA("bạn ơi đừng buồn nhé tui cũng buồn lắm nếu bạn thấy buồn thì bạn hãy ra ngoài đi chơi nhé 😨. Đừng quên chọn tính năng tự out 🏔 🗻. Chúc cho nỗi buồn của bạn sớm được vơi đi 😲");
+					if(cut2 === "1")
+					{
+						this.props.ThuchienthaydoitrangthaiA();
+						this.props.ThuchienlaydulieuA("bạn ơi đừng buồn nhé tui cũng buồn lắm nếu bạn thấy buồn thì bạn hãy ra ngoài đi chơi nhé 😨. Đừng quên chọn tính năng tự out 🏔 🗻. Chúc cho nỗi buồn của bạn sớm được vơi đi 😲");
+					}
 					return(<b><i className="fas fa-sad-tear"></i>:&nbsp;Buồn lắm</b>)
 				}
 				else if(this.state.trangthai === 4)
 				{
-					this.props.ThuchienthaydoitrangthaiA();
-					this.props.ThuchienlaydulieuA("bạn ơi có không hài lòng ☹️ gì về hệ thống bạn hãy gửi cho mình kiến nghị tại gmail tuanphani.c.t@gmail.com nhé 😰");
+					if(cut2 === "1")
+					{
+						this.props.ThuchienthaydoitrangthaiA();
+						this.props.ThuchienlaydulieuA("bạn ơi có không hài lòng ☹️ gì về hệ thống bạn hãy gửi cho mình kiến nghị tại gmail tuanphani.c.t@gmail.com nhé 😰");
+					}
 					return(<b><i className="fas fa-angry"></i>:&nbsp;Bực bội</b>)
 				}
 				else if(this.state.trangthai === 5)
 				{
-					this.props.ThuchienthaydoitrangthaiA();
-					this.props.ThuchienlaydulieuA("bạn đừng sợ có tôi đây rồi tôi sẽ kích hoạt tính năng tự động out tài khoản bạn 🤬 đừng cung cấp thông tin gì cho kẻ đang hại bạn nhé 😠");
-					setTimeout(function(){ 	firebase.auth().signOut();
-						window.location.reload(); }, 2000);
+					if(cut2 === "1")
+					{
+						this.props.ThuchienthaydoitrangthaiA();
+						this.props.ThuchienlaydulieuA("bạn đừng sợ có tôi đây rồi tôi sẽ kích hoạt tính năng tự động out tài khoản bạn 🤬 đừng cung cấp thông tin gì cho kẻ đang hại bạn nhé 😠");
+						setTimeout(function(){ 	firebase.auth().signOut();window.location.reload(); }, 2000);
+					}
 					return(<b><i className="fas fa-ghost"></i>:&nbsp;Sợ hãi</b>)
 				}
 				else if(this.state.trangthai === 6)
 				{
-					let info = {};
-					info.outtaikhoan = "59";
-					info.treem = this.state.persion3;
-					this.props.ThaydoidulieuvoncoSSS(info);
-					this.props.ThuchienthaydoitrangthaiA();
-					this.props.ThuchienlaydulieuA("bạn đừng chán nhé 🤗. Tôi sẽ mở cho bạn nghe một bản nhạc hay để bạn thấy thư dãn ơn nhé hoặc bạn có thể ra ngoài cũng được 😋 . Nhưng phải bật tính năng tự động out tôi mới chạy cơ 😘");
+					if(cut2 === "1")
+					{
+						let info = {};
+						info.outtaikhoan = "59";
+						info.treem = this.state.persion3;
+						this.props.ThaydoidulieuvoncoSSS(info);
+						this.props.ThuchienthaydoitrangthaiA();
+						this.props.ThuchienlaydulieuA("bạn đừng chán nhé 🤗. Tôi sẽ mở cho bạn nghe một bản nhạc hay để bạn thấy thư dãn ơn nhé hoặc bạn có thể ra ngoài cũng được 😋 . Nhưng phải bật tính năng tự động out tôi mới chạy cơ 😘");
+					}
 					return(<b><i className="fas fa-frown-open"></i>:&nbsp;Chán ghét</b>)
 				}
 				else if(this.state.trangthai === 7)
 				{
-					this.props.ThuchienthaydoitrangthaiA();
-					this.props.ThuchienlaydulieuA("bạn tìm được thông tin gì làm mình thích thú à 🤗 🤩 . Hay là lời tâm sự của một anh đẹp trai nào đó hoặc một cô gái mà bạn thích 😛 😜. Thả tym bạn");
+					if(cut2 === "1")
+					{
+						this.props.ThuchienthaydoitrangthaiA();
+						this.props.ThuchienlaydulieuA("bạn tìm được thông tin gì làm mình thích thú à 🤗 🤩 . Hay là lời tâm sự của một anh đẹp trai nào đó hoặc một cô gái mà bạn thích 😛 😜. Thả tym bạn");
+					}
 					return(<b><i className="fas fa-flushed"></i>:&nbsp;Ngạc nhiên</b>)
 				}
 			}
@@ -173,8 +197,9 @@ class UserInfo extends Component {
 					datas.forEach(element => {
 						const outtaikhoan = element.val().outtaikhoan;
 						const treem = element.val().treem;
+						const hienThiThongBao = element.val().hienThiThongBao;
 						Mang2.push({
-		
+							hienThiThongBao : hienThiThongBao,
 								outtaikhoan : outtaikhoan,
 								treem : treem,
 							})
@@ -313,7 +338,7 @@ class UserInfo extends Component {
 				else
 				{
 					return(
-						<iframe src="https://www.nhaccuatui.com/mh/auto/6GbGzYuflp" width="620" height="382" title="demo" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+						<iframe src="https://www.nhaccuatui.com/mh/auto/wq9TcpbG2gjL" width="620" height="382" title="demo" frameborder="0" allowfullscreen allow="autoplay"></iframe>
 					)
 				}
 			}
@@ -321,6 +346,7 @@ class UserInfo extends Component {
 
 		ThemmoiCacThuQuanTrongveIconx = () => {
 			let info = {};
+			info.hienThiThongBao = this.state.persion4;
 			info.outtaikhoan = this.state.persion2;
 			info.treem = this.state.persion3;
 			this.props.ThaydoidulieuvoncoSSS(info);
@@ -380,13 +406,13 @@ class UserInfo extends Component {
 								{/* Navbar */}
 								
 								<ul className="navbar-nav ml-auto ml-md-0">
-										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i className="fab fa-hubspot"></i>:&nbsp;{this.hienthiketqua()}</button>
+										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i className="fab fa-hubspot"></i>&nbsp;{this.hienthiketqua()}</button>
 										{/* Modal */}
 										<div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div className="modal-dialog" role="document">
 												<div className="modal-content">
 													<div className="modal-header">
-														<h5 className="modal-title" id="exampleModalLabel">Tinh chỉnh cài đặt trợ lý ảo iconX</h5>
+														<h5 className="modal-title" id="exampleModalLabel">Tinh chỉnh cài đặt trợ lý ảo iconX<span role="img" aria-label="sheep">🤗 🤩</span></h5>
 														<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 															<span aria-hidden="true">×</span>
 														</button>
@@ -394,7 +420,7 @@ class UserInfo extends Component {
 													
 													<div className="modal-body">
 															<div className="alert alert-warning" role="alert">
-																Giới thiệu đây là tính năng tự động out khi không có người . Nếu bạn đứng lên và không làm việc nữa hệ thống sẽ out tài khoản bạn vừa đăng nhập để bảo vệ an toàn cho hệ thống
+																<span role="img" aria-label="sheep">💁‍♀️ 💁‍♂️</span> 🙆‍♀️ 🙆‍♂️Giới thiệu đây là tính năng tự động out khi không có người . Nếu bạn đứng lên và không làm việc nữa hệ thống sẽ out tài khoản bạn vừa đăng nhập để bảo vệ an toàn cho hệ thống
 																nếu bạn thấu phiền vì tính năng bạn có thể tắt nó đi trong tinh chỉnh lựa chọn dưới đây
 															</div>
 
@@ -406,13 +432,23 @@ class UserInfo extends Component {
 													</div>
 													<div className="modal-body">
 														<div className="alert alert-secondary" role="alert">
-																Giới thiệu đây là tính năng tự động đăng xuất tài khoản khi người làm việc đối diện là một đứa bé dưới 14 tuổi . Nếu bạn thấy không cần thiết hoặc phiền thì có thể lựa chọn
+																<span role="img" aria-label="sheep">🙅🏻 🙅🏻‍♂️</span>Giới thiệu đây là tính năng tự động đăng xuất tài khoản khi người làm việc đối diện là một đứa bé dưới 14 tuổi . Nếu bạn thấy không cần thiết hoặc phiền thì có thể lựa chọn
 																tắt tính năng này đi trong tinh chỉnh lựa chọn dưới dây
 															</div>
 															<select className="form-control form-control-sm" onChange={(event)=>this.IsCHangeP3(event)} name="persion3">
 															<option value={"-"}>Lựa chọn đuê</option>
 																<option value={"14"}>Bật tính năng khóa an toàn cho trẻ em</option>
 																<option value={"00"}>Tắt tính năng khoán an toàn cho trẻ em</option>
+															</select>
+													</div>
+													<div className="modal-body">
+														<div className="alert alert-primary" role="alert">
+														<span role="img" aria-label="sheep">😲</span>😰😱Lựa chọn cho trợ lý ảo trò chuyện với bạn qua thông báo 😀 và cũng tự động thay đổi một số tính năng trong một số cài đặt
+															</div>
+															<select className="form-control form-control-sm" onChange={(event)=>this.IsCHangeP4(event)} name="persion4">
+															<option value={"-"}>Lựa chọn đuê</option>
+																<option value={"1"}>Bật tính năng cho nó xàm với bạn</option>
+																<option value={"0"}>Tắt tính năng cho nó xàm với bạn</option>
 															</select>
 													</div>
 													<div className="modal-footer">
