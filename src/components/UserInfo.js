@@ -301,7 +301,7 @@ class UserInfo extends Component {
 				if(dl.length !== 0)
 				{		
 					let goc = JSON.stringify(this.state.iconX);
-					let cut2 = goc.slice(30,-3);
+					let cut2 = goc.slice(52,-3);
 					if(Number(dl) < Number(cut2))
 					{
 						console.log("đúng rồi đấy");
@@ -328,7 +328,7 @@ class UserInfo extends Component {
 			if(this.state.giatricotloi === 0)
 			{
 				let goc = JSON.stringify(this.state.iconX);
-				let cut = goc.slice(17,-16);
+				let cut = goc.slice(39,-16);
 				let getNgay = new Date();
 				if(getNgay.getSeconds(0) === Number(cut))
 				{
@@ -356,7 +356,7 @@ class UserInfo extends Component {
 
 		duaRaKetQua = () => {
 			let goc = JSON.stringify(this.state.iconX);
-			let cut = goc.slice(17,-16);
+			let cut = goc.slice(39,-16);
 			if(cut === "59")
 			{
 				return("Tự động out đã bật");
@@ -369,7 +369,7 @@ class UserInfo extends Component {
 
 		duaRaKetQua2 = () => {
 			let goc = JSON.stringify(this.state.iconX);
-			let cut = goc.slice(30,-3);
+			let cut = goc.slice(52,-3);
 			if(cut === "00")
 			{
 				return("OFF security baby");
