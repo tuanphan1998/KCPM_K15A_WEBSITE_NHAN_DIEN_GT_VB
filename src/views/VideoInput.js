@@ -126,6 +126,7 @@ class VideoInput extends Component {
                   }}
                 >
                   {match[i]._label}
+									{console.log(match[i]._label)}
 									<br/>
                   {this.state.gender}
                   <br/>
