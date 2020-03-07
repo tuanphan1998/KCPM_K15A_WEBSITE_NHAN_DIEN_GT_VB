@@ -70,6 +70,7 @@ class VideoInput extends Component {
 						camxuc : fullDesc.map(fd => fd.expressions),
 					});
 					this.props.camxucCuaNhanVienss(this.state.camxuc[0]);
+				
 				}
       });
 
@@ -126,7 +127,7 @@ class VideoInput extends Component {
                   }}
                 >
                   {match[i]._label}
-									{console.log(match[i]._label)}
+									{this.props.duaRaKetQua3sss(match[i]._label)}
 									<br/>
                   {this.state.gender}
                   <br/>

@@ -24,6 +24,7 @@ class UserInfo extends Component {
 					persion2 : "99",
 					persion3 : "00",
 					persion4 : "0",
+					persion5 : "0",
 					time: new Date()
 				};
 			}
@@ -95,9 +96,17 @@ class UserInfo extends Component {
 					[name] : value
 				});
 			}
+			IsCHangeP5 = (event) => {
+				const name = event.target.name;
+				const value = event.target.value;
+				this.setState({
+					[name] : value
+				});
+			}
 			camXucHienThi = () => {
 				let goc = JSON.stringify(this.state.iconX);
-				let cut2 = goc.slice(21,-35);
+				let cut2 = goc.slice(21,-51);
+				console.log(cut2);
 				if(this.state.trangthai === 1)
 				{
 					return(<b><i className="far fa-meh"></i>:&nbsp;Bình thường</b>)
@@ -198,10 +207,12 @@ class UserInfo extends Component {
 						const outtaikhoan = element.val().outtaikhoan;
 						const treem = element.val().treem;
 						const hienThiThongBao = element.val().hienThiThongBao;
+						const nhomatchu = element.val().nhomatchu;
 						Mang2.push({
 							hienThiThongBao : hienThiThongBao,
 								outtaikhoan : outtaikhoan,
 								treem : treem,
+								nhomatchu : nhomatchu,
 							})
 					});
 					this.setState({
@@ -301,13 +312,11 @@ class UserInfo extends Component {
 				if(dl.length !== 0)
 				{		
 					let goc = JSON.stringify(this.state.iconX);
-					let cut2 = goc.slice(52,-3);
+					let cut2 = goc.slice(52,-19);
 					if(Number(dl) < Number(cut2))
 					{
-						console.log("đúng rồi đấy");
 						firebase.auth().signOut();
-						setTimeout(function(){window.location.reload() }, 2000);
-						
+						setTimeout(function(){window.location.reload() }, 2000);	
 					}
 				}
 }
@@ -328,7 +337,7 @@ class UserInfo extends Component {
 			if(this.state.giatricotloi === 0)
 			{
 				let goc = JSON.stringify(this.state.iconX);
-				let cut = goc.slice(39,-16);
+				let cut = goc.slice(39,-32);
 				let getNgay = new Date();
 				if(getNgay.getSeconds(0) === Number(cut))
 				{
@@ -347,6 +356,7 @@ class UserInfo extends Component {
 		ThemmoiCacThuQuanTrongveIconx = () => {
 			let info = {};
 			info.hienThiThongBao = this.state.persion4;
+			info.nhomatchu = this.state.persion5;
 			info.outtaikhoan = this.state.persion2;
 			info.treem = this.state.persion3;
 			this.props.ThaydoidulieuvoncoSSS(info);
@@ -356,7 +366,7 @@ class UserInfo extends Component {
 
 		duaRaKetQua = () => {
 			let goc = JSON.stringify(this.state.iconX);
-			let cut = goc.slice(39,-16);
+			let cut = goc.slice(39,-32);
 			if(cut === "59")
 			{
 				return("Tự động out đã bật");
@@ -369,7 +379,7 @@ class UserInfo extends Component {
 
 		duaRaKetQua2 = () => {
 			let goc = JSON.stringify(this.state.iconX);
-			let cut = goc.slice(52,-3);
+			let cut = goc.slice(52,-19);
 			if(cut === "00")
 			{
 				return("OFF security baby");
@@ -380,8 +390,41 @@ class UserInfo extends Component {
 			}
 		}
 
+		duaRaKetQua3 = (dl) => {
+			let goc = JSON.stringify(this.state.iconX);
+			let cut = goc.slice(69 , -3);
+			console.log(cut);
+			if(cut === "1")
+			{
+				if(dl)
+				{
+					if(dl !== "Tuân phan")
+					{
+						firebase.auth().signOut();
+						setTimeout(function(){window.location.reload() }, 2000);	
+					}
+				}
+			}
+		}
 
+		showitem = () => {
+			let goc = JSON.stringify(this.state.iconX);
+			let cut = goc.slice(69 , -3);
+			if(cut === "0")
+			{
+				return("tắt nhớ mặt chủ");
+			}
+			else
+			{
+				return("Bật nhớ mặt chủ");
+			}
+		}
 
+		tennhe = (name) => {
+				return(
+				<b>Xin chào {name}</b>
+				)
+		}
   render() {
    const logout = <button onClick={this.logout}>Log Out!</button>;
     if (!this.state.email) {
@@ -451,13 +494,23 @@ class UserInfo extends Component {
 																<option value={"0"}>Tắt tính năng cho nó xàm với bạn</option>
 															</select>
 													</div>
+													<div className="modal-body">
+														<div className="alert alert-primary" role="alert">
+														<span role="img" aria-label="sheep">👹</span>🤯Lựa chọn tính năng ghi nhớ mặt chủ 😒 mô tả nếu ai đó truy cập mà không phải chủ nhân thì sẽ bị out ra khỏi hệ thống sau 2 giây đếm ngược bodoi với chúng tôi đâu
+															</div>
+															<select className="form-control form-control-sm" onChange={(event)=>this.IsCHangeP5(event)} name="persion5">
+															<option value={"-"}>Lựa chọn đuê</option>
+																<option value={"1"}>Bật tính năng nhớ mặt chủ</option>
+																<option value={"0"}>Tắt tính năng nhớ mặt chủ</option>
+															</select>
+													</div>
 													<div className="modal-footer">
 														<button type="button" className="btn btn-primary"  data-dismiss="modal" onClick={()=>this.ThemmoiCacThuQuanTrongveIconx()}>Lưu lại</button>
 													</div>
 												</div>
 											</div>
 										</div>
-										<VideoInput  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} camxucCuaNhanVienss={(dl)=>this.camxucCuaNhanVien(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
+										<VideoInput duaRaKetQua3sss={(dl)=>this.duaRaKetQua3(dl)}  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} camxucCuaNhanVienss={(dl)=>this.camxucCuaNhanVien(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
 								</ul>
 
 
@@ -466,6 +519,7 @@ class UserInfo extends Component {
 										<a className="nav-link dropdown-toggle" href="/" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			
 										<small className="alert alert-dark" role="alert">
+											<i className="fas fa-surprise"></i>:&nbsp; {this.showitem()}&nbsp;&nbsp;&nbsp;&nbsp;
 											{this.camXucHienThi()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-sign-out-alt"></i>:&nbsp; {this.duaRaKetQua()}&nbsp;&nbsp;&nbsp;&nbsp;
 											<i className="fas fa-baby"></i>:&nbsp; {this.duaRaKetQua2()}&nbsp;&nbsp;&nbsp;&nbsp;
