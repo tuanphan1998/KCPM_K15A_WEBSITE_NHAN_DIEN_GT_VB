@@ -328,7 +328,7 @@ class UserInfo extends Component {
 			}
 			else if(this.state.giatricotloi === 0)
 			{
-				return("Không làm thì bật tính năng tự out nhé");
+				return("Không làm việc");
 			}
 		}
 
