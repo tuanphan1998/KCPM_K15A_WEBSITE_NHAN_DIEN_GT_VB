@@ -393,10 +393,10 @@ class UserInfo extends Component {
 		duaRaKetQua3 = (dl) => {
 			let goc = JSON.stringify(this.state.iconX);
 			let cut = goc.slice(69 , -3);
-			console.log(cut);
+		
 			if(cut === "1")
 			{
-				if(dl)
+				if(dl !== "unknown")
 				{
 					if(dl !== "Tuân phan")
 					{
