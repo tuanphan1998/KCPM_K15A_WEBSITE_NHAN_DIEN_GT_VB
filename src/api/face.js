@@ -3,7 +3,7 @@ import * as faceapi from 'face-api.js';
 // Load models and weights
 export async function loadModels() {
   const MODEL_URL = process.env.PUBLIC_URL + '/models';
-  await faceapi.loadTinyFaceDetectorModel(MODEL_URL);
+  await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
   await faceapi.loadFaceLandmarkTinyModel(MODEL_URL);
 	await faceapi.loadFaceRecognitionModel(MODEL_URL);
 	await faceapi.loadAgeGenderModel(MODEL_URL);
@@ -13,7 +13,7 @@ export async function loadModels() {
 export async function getFullFaceDescription(blob, inputSize = 512) {
   // tiny_face_detector options
   let scoreThreshold = 0.5;
-  const OPTION = new faceapi.TinyFaceDetectorOptions({
+  const OPTION = new faceapi.SsdMobilenetv1Options({
     inputSize,
     scoreThreshold
   });
