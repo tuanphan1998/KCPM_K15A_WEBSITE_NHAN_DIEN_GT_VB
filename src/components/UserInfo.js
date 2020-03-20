@@ -106,6 +106,7 @@ class UserInfo extends Component {
 			camXucHienThi = () => {
 				let goc = JSON.stringify(this.state.iconX);
 				let cut2 = goc.slice(21,-51);
+				console.log(cut2);
 				if(this.state.trangthai === 1)
 				{
 					return(<b><i className="far fa-meh"></i>:&nbsp;Bình thường</b>)
@@ -307,6 +308,7 @@ class UserInfo extends Component {
 
 
 		LuuGiaTriKhuonMat3 = (dl) => {
+			console.log(dl);
 				if(dl.length !== 0)
 				{		
 					let goc = JSON.stringify(this.state.iconX);
