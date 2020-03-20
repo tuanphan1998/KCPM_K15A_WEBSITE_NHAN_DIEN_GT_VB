@@ -228,7 +228,7 @@ HamGhiNhanGIaTri = () => {
                     </div>
                     <div className="modal-body">
                     <div className="form-group">
-                    <select class="form-control" id="exampleFormControlSelect1" onChange={(event)=>this.changeState2(event)} name="cam">
+                    <select className="form-control" id="exampleFormControlSelect1" onChange={(event)=>this.changeState2(event)} name="cam">
                       <option value={"user"}>Camera trước</option>
                       <option value={"environment"}>Camera sau</option>
                     </select>
