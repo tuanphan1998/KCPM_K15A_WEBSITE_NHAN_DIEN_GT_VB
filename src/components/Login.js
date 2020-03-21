@@ -97,14 +97,14 @@ camName = () => {
 	if(this.state.cam2 === 'user')
 	{
 		return(
-			<p>camera trước</p>
-		)
+		<>	<p>camera trước</p></>
+		);
 	}
 	else
 	{
 		return(
-			<p>camera sau</p>
-		)
+			<>	<p>camera sau</p></>
+		);
 	}
 }
 

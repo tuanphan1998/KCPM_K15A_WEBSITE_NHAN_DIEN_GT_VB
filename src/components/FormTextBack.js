@@ -215,7 +215,7 @@ class FormTextBack extends Component {
     }
     
     render() {
-        console.log(this.state.data);
+       
         return (
             <div>
                      <div className="input-group mb-3 mt-5">

@@ -105,7 +105,6 @@ class FormInForVsEdit extends Component {
 						}
 						return 0;
         });
-        console.log(this.props.ThuchineHienTHi);
         return (
             <div id="accordion" className="mt-4">
                 <div className="row mt-3 mb-4">

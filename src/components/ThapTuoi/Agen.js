@@ -163,7 +163,7 @@ class Agen extends Component {
     }
 
     render() {
-        console.log(this.state.data34);
+       
         return (
             <div>
 								<div className="text-uppercase">

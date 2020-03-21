@@ -33,49 +33,49 @@ class UserInfo extends Component {
 					{
 						if(dl.neutral > dl.happy && dl.neutral > dl.sad && dl.neutral > dl.angry && dl.neutral > dl.fearful && dl.neutral > dl.disgusted && dl.neutral > dl.surprised)
 						{
-							console.log("Cảm xúc bình thường");
+						
 							this.setState({
 								trangthai : 1
 							});
 						}
 						else if(dl.happy > dl.neutral && dl.happy > dl.sad && dl.happy > dl.angry && dl.happy > dl.fearful && dl.happy > dl.disgusted && dl.happy > dl.surprised)
 						{
-							console.log("Cảm xúc vui vẻ");
+							
 							this.setState({
 								trangthai : 2
 							});
 						}
 						else if(dl.sad > dl.neutral && dl.sad > dl.happy && dl.sad > dl.angry && dl.sad > dl.fearful && dl.sad > dl.disgusted && dl.sad > dl.surprised)
 						{
-							console.log("Cảm xúc buồn");
+							
 							this.setState({
 								trangthai : 3
 							});
 						}
 						else if(dl.angry > dl.neutral && dl.angry > dl.happy && dl.angry > dl.sad && dl.angry > dl.fearful && dl.angry > dl.disgusted && dl.angry > dl.surprised)
 						{
-							console.log("Cảm xúc bực bội");
+						
 							this.setState({
 								trangthai : 4
 							});
 						}
 						else if(dl.fearful > dl.neutral && dl.fearful > dl.happy && dl.fearful > dl.sad && dl.fearful > dl.angry && dl.fearful > dl.disgusted && dl.fearful > dl.surprised)
 						{
-							console.log("Cảm xúc Sợ hãi");
+						
 							this.setState({
 								trangthai : 5
 							});
 						}
 						else if(dl.disgusted > dl.neutral && dl.disgusted > dl.happy && dl.disgusted > dl.sad && dl.disgusted > dl.angry && dl.disgusted > dl.fearful && dl.disgusted > dl.surprised)
 						{
-							console.log("Cảm xúc chán ghét");
+							
 							this.setState({
 								trangthai : 6
 							});
 						}
 						else if(dl.surprised > dl.neutral && dl.surprised > dl.happy && dl.surprised > dl.sad && dl.surprised > dl.angry && dl.surprised > dl.fearful && dl.surprised > dl.disgusted)
 						{
-							console.log("Cảm xúc ngạc nhiên");
+							
 							this.setState({
 								trangthai : 7
 							});
@@ -106,7 +106,7 @@ class UserInfo extends Component {
 			camXucHienThi = () => {
 				let goc = JSON.stringify(this.state.iconX);
 				let cut2 = goc.slice(21,-51);
-				console.log(cut2);
+			
 				if(this.state.trangthai === 1)
 				{
 					return(<b><i className="far fa-meh"></i>:&nbsp;Bình thường</b>)
@@ -308,7 +308,6 @@ class UserInfo extends Component {
 
 
 		LuuGiaTriKhuonMat3 = (dl) => {
-			console.log(dl);
 				if(dl.length !== 0)
 				{		
 					let goc = JSON.stringify(this.state.iconX);
