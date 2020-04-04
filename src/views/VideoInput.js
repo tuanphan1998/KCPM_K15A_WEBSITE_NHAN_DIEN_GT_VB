@@ -7,7 +7,7 @@ const JSON_PROFILE = require('../descriptors/bnk48.json');
 
 const WIDTH = 90;
 const HEIGHT = 40;
-const inputSize = 160;
+const inputSize = 128;
 
 class VideoInput extends Component {
   constructor(props) {
