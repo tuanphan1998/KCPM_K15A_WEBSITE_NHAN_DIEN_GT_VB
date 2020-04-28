@@ -51,7 +51,7 @@ class VideoInput extends Component {
   startCapture = () => {
     this.interval = setInterval(() => {
       this.capture();
-    }, 1000);
+    }, 500);
   };
 
   componentWillUnmount() {
