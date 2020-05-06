@@ -323,11 +323,11 @@ class UserInfo extends Component {
 		hienthiketqua = () => {
 			if(this.state.giatricotloi === 1)
 			{
-				return("Đang ngồi làm việc");
+				return(	<button type="button" className="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i className="fab fa-hubspot"></i>&nbsp; "Đang ngồi làm việc"</button>);
 			}
 			else if(this.state.giatricotloi === 0)
 			{
-				return("Không làm việc");
+				return(	<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i className="fab fa-hubspot"></i>&nbsp; "Không làm việc"</button>);
 			}
 		}
 
@@ -448,7 +448,7 @@ class UserInfo extends Component {
 								{/* Navbar */}
 								
 								<ul className="navbar-nav ml-auto ml-md-0">
-										<button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i className="fab fa-hubspot"></i>&nbsp;{this.hienthiketqua()}</button>
+									{this.hienthiketqua()}
 										{/* Modal */}
 										<div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div className="modal-dialog" role="document">

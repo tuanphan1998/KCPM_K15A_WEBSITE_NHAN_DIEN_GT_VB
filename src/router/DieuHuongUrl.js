@@ -25,8 +25,8 @@ class DieuHuongUrl extends Component {
                 <Route path="/du-lieu-giong-noi" component={DataLanguage} />
                 <Route path="/chi-tiet-tai-lieu/:slug.:id.html" component={NewDeltal} />
                 <Route path="/du-lieu-update-no-ai" component={Palte} />
-                 <Route path="/thong-tin-he-thong"  component={Infos} />
-								 <Route path="/kiem-tra-qr"  component={Qrcode} />
+                <Route path="/thong-tin-he-thong"  component={Infos} />
+								<Route path="/kiem-tra-qr"  component={Qrcode} />
             </div>
           </Router>
         );
