@@ -79,7 +79,7 @@ class item extends Component {
             async function train(){
                 let option =
                 {
-                   		epochs : 200,
+                   		epochs : 10,
                      validationSplit : 0.1,
                      shuffle : true
                 }

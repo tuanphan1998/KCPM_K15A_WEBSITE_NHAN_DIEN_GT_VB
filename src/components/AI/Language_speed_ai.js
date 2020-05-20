@@ -60,49 +60,56 @@ class Language_speed_ai extends Component {
     }
 
     BUtton = () => {
-        request
-        .post('/hmi/tts/v5')
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('api_key', '7eRMIX6dLxRK6AgRXCq6EuIX8KSep4Wm')
-        .set('voice', this.state.persion)
-        .set('speed', this.state.persion2)
-        .set('prosody', this.state.persion3)
-        .send(JSON.stringify(htmlToText.fromString(this.state.content)))
-        .end(function(err, res){
-        if(err)
-        {
-            console.log(err);
-            alert("ban hết hạn số lượt gọi");
-        }
-        else if (res)
-        {
-              if(res.body.async)
-              {
-                    setTimeout(function(){
-                      localStorage.setItem('language',JSON.stringify(res.body.async));
-                      window.location.reload();
-                  }, 7000);
-              }
-        }
-        });
-        var tem = htmlToText.fromString(this.state.content);
-        if(tem)
-        {
-            if(window.confirm('Ký tự đầu vào là ' + tem.length + " / 100.000 ký tự nếu thấy ổn hãy chọn [YES]"))
-            {
-              this.props.Thuchienthaydoitrangthai();
-              this.props.Thuchienlaydulieu("System Loading ..." + tem.length + " Ký tự ");
-            }
-        }
-        else if (tem > 10000)
-        {
-          alert("hãy xóa bớt ký tự nhé")
-        }
-        var t = this.state.content;
-        var convet = htmlToText.fromString(t);
-        var info = {};
-        info.paneltext =  convet;
-        localStorage.setItem('vanban',JSON.stringify(info));
+				try
+				{
+					request
+					.post('/hmi/tts/v5')
+					.set('Content-Type', 'application/x-www-form-urlencoded')
+					.set('api_key', '7eRMIX6dLxRK6AgRXCq6EuIX8KSep4Wm')
+					.set('voice', this.state.persion)
+					.set('speed', this.state.persion2)
+					.set('prosody', this.state.persion3)
+					.send(JSON.stringify(htmlToText.fromString(this.state.content)))
+					.end(function(err, res){
+					if(err)
+					{
+							console.log(err);
+							alert("ban hết hạn số lượt gọi");
+					}
+					else if (res)
+					{
+								if(res.body.async)
+								{
+											setTimeout(function(){
+												localStorage.setItem('language',JSON.stringify(res.body.async));
+												window.location.reload();
+										}, 7000);
+								}
+					}
+					});
+					var tem = htmlToText.fromString(this.state.content);
+					if(tem)
+					{
+							if(window.confirm('Ký tự đầu vào là ' + tem.length + " / 100.000 ký tự nếu thấy ổn hãy chọn [YES]"))
+							{
+								this.props.Thuchienthaydoitrangthai();
+								this.props.Thuchienlaydulieu("System Loading ..." + tem.length + " Ký tự ");
+							}
+					}
+					else if (tem > 10000)
+					{
+						alert("hãy xóa bớt ký tự nhé")
+					}
+					var t = this.state.content;
+					var convet = htmlToText.fromString(t);
+					var info = {};
+					info.paneltext =  convet;
+					localStorage.setItem('vanban',JSON.stringify(info));
+
+				}catch(error)
+				{
+					console.error(error)
+				}
       }
 
 
