@@ -111,14 +111,15 @@ class Language_speed_ai extends Component {
         info.vanbans = this.state.text.paneltext;
         info.amthanh =  this.state.aws;
         info.hinhanh = this.state.linkimage;
-        info.hashtag = this.state.hashtag;
+        info.hashtag = "#hashtag" +JSON.stringify( this.state.hashtag);
         if(window.confirm('Bạn lựa chọn quy trình tải dữ liệu lên store chứ hãy ấn [YES]'))
         {
-          this.props.Thuchienquytrunh(info);
-        }
-        
-        this.props.Thuchienlaydulieu(" đã upload " + this.state.aws + " thành công ");
-
+					this.props.Thuchienquytrunh(info);
+					this.props.Thuchienlaydulieu(" đã upload " + this.state.aws + " thành công ");
+				}
+				else {
+					this.props.Thuchienlaydulieu("liêm sỉ đánh rơi bờ rào");
+				}
         this.props.Thuchienthaydoitrangthai();
       }
 
