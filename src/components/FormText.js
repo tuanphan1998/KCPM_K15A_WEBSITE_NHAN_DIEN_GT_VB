@@ -55,67 +55,73 @@ class FormText extends Component {
 
 
 		functionThucThi = () => {
-			var info = {};
-			info.image_url = this.state.image_url;
-			request
-			.post(this.state.changeGiayTo)
-			.set('Content-Type', 'application/x-www-form-urlencoded')
-			.set('api_key',this.hamngoai())
-			.send({image_base64: this.state.dataBase64})
-			.send({image_url: this.state.image_url})
-			.send({face:1})
-			.end(function(err, res){
-			if(err)
+			try
 			{
-					alert("ban hết hạn số lượt gọi");
-			}
-			else
+				var info = {};
+				info.image_url = this.state.image_url;
+				request
+				.post(this.state.changeGiayTo)
+				.set('Content-Type', 'application/x-www-form-urlencoded')
+				.set('api_key',this.hamngoai())
+				.send({image_base64: this.state.dataBase64})
+				.send({image_url: this.state.image_url})
+				.send({face:1})
+				.end(function(err, res){
+				if(err)
+				{
+						alert("ban hết hạn số lượt gọi");
+				}
+				else
+				{
+						var items = JSON.parse(res.text);
+						if(res.body.errorCode === 3)
+						{
+								alert('hệ thống không tìm thấy CMT trong ảnh hoặc ảnh có chất lượng kém (quá mờ, quá tối/sáng).');
+						}
+						else if (res.body.errorCode === 1)
+						{
+								alert('Sai thông số trong request (ví dụ không có key hoặc ảnh trong request body).');
+						}
+						else if (res.body.errorCode === 2)
+						{
+								alert('CMT trong ảnh bị thiếu góc nên không thể crop về dạng chuẩn.');
+						}
+						else if (res.body.errorCode === 5)
+						{
+								alert(' Request sử dụng key image_url nhưng giá trị bỏ trống.');
+						}
+						else if (res.body.errorCode === 6)
+						{
+								alert('Request sử dụng key image_url nhưng hệ thống không thể mở được URL này.');
+						}
+						else if (res.body.errorCode === 7)
+						{
+								alert('File gửi lên không phải là file ảnh.');
+						}
+						else if (res.body.errorCode === 8)
+						{
+								alert(' File ảnh gửi lên bị hỏng hoặc format không được hỗ trợ.');
+						}
+						else if (res.body.errorCode === 9)
+						{
+								alert(' Request sử dụng key image_base64 nhưng giá trị bỏ trống.');
+						}
+						else if (res.body.errorCode === 10)
+						{
+								alert('Request sử dụng key image_base64 nhưng string cung cấp không hợp lệ.');
+						}
+						else
+						{
+							localStorage.setItem('mahoan',JSON.stringify(items.data[0]));
+							window.location.reload();
+						
+						}
+				}
+				});
+			}catch(error)
 			{
-					var items = JSON.parse(res.text);
-					if(res.body.errorCode === 3)
-					{
-							alert('hệ thống không tìm thấy CMT trong ảnh hoặc ảnh có chất lượng kém (quá mờ, quá tối/sáng).');
-					}
-					else if (res.body.errorCode === 1)
-					{
-							alert('Sai thông số trong request (ví dụ không có key hoặc ảnh trong request body).');
-					}
-					else if (res.body.errorCode === 2)
-					{
-							alert('CMT trong ảnh bị thiếu góc nên không thể crop về dạng chuẩn.');
-					}
-					else if (res.body.errorCode === 5)
-					{
-							alert(' Request sử dụng key image_url nhưng giá trị bỏ trống.');
-					}
-					else if (res.body.errorCode === 6)
-					{
-							alert('Request sử dụng key image_url nhưng hệ thống không thể mở được URL này.');
-					}
-					else if (res.body.errorCode === 7)
-					{
-							alert('File gửi lên không phải là file ảnh.');
-					}
-					else if (res.body.errorCode === 8)
-					{
-							alert(' File ảnh gửi lên bị hỏng hoặc format không được hỗ trợ.');
-					}
-					else if (res.body.errorCode === 9)
-					{
-							alert(' Request sử dụng key image_base64 nhưng giá trị bỏ trống.');
-					}
-					else if (res.body.errorCode === 10)
-					{
-							alert('Request sử dụng key image_base64 nhưng string cung cấp không hợp lệ.');
-					}
-					else
-					{
-						localStorage.setItem('mahoan',JSON.stringify(items.data[0]));
-						window.location.reload();
-					
-					}
+				console.error(error);
 			}
-			});
 		}
 
 		
