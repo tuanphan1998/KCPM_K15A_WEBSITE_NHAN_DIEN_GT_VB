@@ -4,7 +4,8 @@ class item extends Component {
         super(props);
         this.state = {
             data : this.props.dulieushh,
-            ketquachinhthuc : ''
+            ketquachinhthuc : '',
+            hianhdauvao : ''
         };
     }
     showconten = () => {
@@ -41,12 +42,13 @@ class item extends Component {
         }
     }
 
+  
 
 
     render() {
+        console.log(this.props.dulieushh.cropped_idcard);
         return (
             <div>
-               
                 <div className="col">
                         {this.showconten()}
                         <div className="card text-left">
