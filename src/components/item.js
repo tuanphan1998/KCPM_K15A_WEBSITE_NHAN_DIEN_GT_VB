@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
 class item extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -30,11 +28,6 @@ class item extends Component {
             )
         }
     }
-
-
-
-
-
     phongdoangioitinh = () => {
         if(this.props.dulieushh.sex === "N/A")
         {
@@ -62,7 +55,7 @@ class item extends Component {
                         {this.props.dulieushh &&  <img className="card-img-top" width="120px" src={this.props.dulieushh} alt="" /> }
                         </div>
                         <div className="card-body" >
-                        {this.props.dulieushh.face &&  <img className="card-img-top left_manager" style={{width: '240px',height: '300px', marginRight: '40px'}} src={this.props.dulieushh.face} alt="demo" />}
+                        		{this.props.dulieushh.face &&  <img className="card-img-top left_manager" style={{width: '240px',height: '300px', marginRight: '40px'}} src={this.props.dulieushh.face} alt="demo" />}
                             <div className="card-body" style={{paddingTop: '0px'}}>
                             {this.props.dulieushh.name && <h5 className="card-title color_mana mb-10" style={{marginBottom: '16px'}}>Tên : {this.props.dulieushh.name}</h5> }
                             {this.props.dulieushh.address &&   <h5 className="card-title color_mana mb-10" style={{marginBottom: '16px'}}>Địa chỉ : {this.props.dulieushh.address}</h5> }
