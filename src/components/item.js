@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
 class item extends Component {
 
     constructor(props) {
@@ -38,7 +39,7 @@ class item extends Component {
         if(this.props.dulieushh.sex === "N/A")
         {
             return(
-               "Dang xay dung"
+                "dang xay dung"
             );
         }
         else
