@@ -4,8 +4,8 @@ class item extends Component {
         super(props);
         this.state = {
             data : this.props.dulieushh,
-            ketquachinhthuc : '',
-            hianhdauvao : ''
+						ketquachinhthuc : '',
+	
         };
     }
     showconten = () => {
@@ -28,27 +28,27 @@ class item extends Component {
                 <h4>Hình ảnh đầu vào :  Căn cước công dân</h4>
             )
         }
-    }
+		}
+	
     phongdoangioitinh = () => {
         if(this.props.dulieushh.sex === "N/A")
         {
             return(
-                "dang xay dung"
+							"dang xanh dung"
             );
         }
         else
         {
             return (this.props.dulieushh.sex);
         }
-    }
-
-  
+		}
+		
 
 
     render() {
-        console.log(this.props.dulieushh.cropped_idcard);
         return (
             <div>
+               
                 <div className="col">
                         {this.showconten()}
                         <div className="card text-left">
