@@ -28,6 +28,12 @@ class UserInfo extends Component {
 					time: new Date()
 				};
 			}
+			dataGender = (gender) => {
+				if(gender)
+				{
+					localStorage.setItem('Gender', gender);
+				}
+			}
 			camxucCuaNhanVien = (dl) => {
 					if(dl !== undefined)
 					{
@@ -509,7 +515,7 @@ class UserInfo extends Component {
 												</div>
 											</div>
 										</div>
-										<VideoInput duaRaKetQua3sss={(dl)=>this.duaRaKetQua3(dl)}  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} camxucCuaNhanVienss={(dl)=>this.camxucCuaNhanVien(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
+										<VideoInput dataGenders={(gender)=>this.dataGender(gender)} duaRaKetQua3sss={(dl)=>this.duaRaKetQua3(dl)}  LuuGiaTriKhuonMats2={(dl)=>this.LuuGiaTriKhuonMat2(dl)} camxucCuaNhanVienss={(dl)=>this.camxucCuaNhanVien(dl)} LuuGiaTriKhuonMats3={(dl)=>this.LuuGiaTriKhuonMat3(dl)}/>
 								</ul>
 
 

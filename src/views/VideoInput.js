@@ -82,6 +82,7 @@ class VideoInput extends Component {
 			}
 			this.props.LuuGiaTriKhuonMats2(this.state.match);
 			this.props.LuuGiaTriKhuonMats3(this.state.age);
+			this.props.dataGenders(this.state.gender);
 		}
 	};
 

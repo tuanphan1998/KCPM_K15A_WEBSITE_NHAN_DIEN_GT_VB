@@ -29,12 +29,24 @@ class item extends Component {
             )
         }
 		}
+		dangphantich = () => {
+			if(	localStorage.getItem('Gender') === 'male')
+			{
+				return("Nam");
+			}
+			else if(localStorage.getItem('Gender') === 'female' ) {
+				return("Nữ");
+			}
+			else {
+				return("chưa phỏng đoáng được");
+			}
+		}
 	
     phongdoangioitinh = () => {
         if(this.props.dulieushh.sex === "N/A")
         {
             return(
-							"dang xanh dung"
+							this.dangphantich()
             );
         }
         else
@@ -42,12 +54,12 @@ class item extends Component {
             return (this.props.dulieushh.sex);
         }
 		}
-
-
+		
 		
 
 
     render() {
+		
         return (
             <div>
                
