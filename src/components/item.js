@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import VideoInput from '../views/VideoInput';
 class item extends Component {
     constructor(props) {
         super(props);
