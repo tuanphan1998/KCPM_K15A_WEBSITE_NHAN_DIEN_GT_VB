@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import VideoInput from '../views/VideoInput';
 class item extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data : this.props.dulieushh,
-						ketquachinhthuc : '',
+			ketquachinhthuc : '',
 	
         };
     }
@@ -42,6 +43,11 @@ class item extends Component {
             return (this.props.dulieushh.sex);
         }
 		}
+
+		gioitinhnha = (gender) => {
+			console.log(gender);
+		}
+
 		
 
 
@@ -57,6 +63,7 @@ class item extends Component {
                         {this.props.dulieushh &&  <img className="card-img-top" width="120px" src={this.props.dulieushh} alt="" /> }
                         </div>
                         <div className="card-body" >
+													<VideoInput gioitinhnhass={(gender)=>this.gioitinhnha(gender)}/>
                         		{this.props.dulieushh.face &&  <img className="card-img-top left_manager" style={{width: '240px',height: '300px', marginRight: '40px'}} src={this.props.dulieushh.face} alt="demo" />}
                             <div className="card-body" style={{paddingTop: '0px'}}>
                             {this.props.dulieushh.name && <h5 className="card-title color_mana mb-10" style={{marginBottom: '16px'}}>Tên : {this.props.dulieushh.name}</h5> }
