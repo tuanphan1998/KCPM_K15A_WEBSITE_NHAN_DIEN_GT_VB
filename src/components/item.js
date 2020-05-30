@@ -32,13 +32,13 @@ class item extends Component {
 		dangphantich = () => {
 			if(	localStorage.getItem('Gender') === 'male')
 			{
-				return("Nam");
+				return(	<small className="ash" style={{"color" : "green"}}>Nam</small>);
 			}
 			else if(localStorage.getItem('Gender') === 'female' ) {
-				return("Nữ");
+				return(	<small className="ash" style={{"color" : "green"}}>Nữ</small>);
 			}
 			else {
-				return("chưa phỏng đoáng được");
+				return(	<small className="ash">Đưa ra được giới tính cụ thể bằng công nghệ ML <u style={{"color" : "red"}}>(ĐANG THỬ NGHIỆM TRÊN WEBCAM)</u></small>);
 			}
 		}
 	
